@@ -1,0 +1,11 @@
+  {
+  "records.music": {
+    "category": "record",
+    "sounds": [
+       {
+      "name": "records/music",
+      "stream": true
+      }
+    ]
+  }
+}

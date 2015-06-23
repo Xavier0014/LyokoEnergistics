@@ -1,5 +1,7 @@
 package com.xavier0014.lyokoenergistics.items;
 
+import com.xavier0014.lyokoenergistics.reference.Reference;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -13,7 +15,7 @@ public class ItemLE extends Item{
 	public ItemLE(String name) {
 		super();
 		this.name = name;
-		this.setUnlocalizedName("lyokoenergistics:"+name);
+		this.setUnlocalizedName(Reference.MOD_id +":"+name);
 		unlocalizedname = this.getUnlocalizedName();
 		
 	}

@@ -1,0 +1,11 @@
+  {
+  "records.unmondesansdanger": {
+    "category": "record",
+    "sounds": [
+       {
+      "name": "records/unmondesansdanger",
+      "stream": true
+      }
+    ]
+  }
+}
