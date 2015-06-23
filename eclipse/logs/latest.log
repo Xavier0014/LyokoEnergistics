@@ -1,11 +1,10 @@
-[15:00:51] [main/INFO]: Setting user: Player202
-[15:00:52] [Client thread/INFO]: LWJGL Version: 2.9.1
-[15:00:55] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:LyokoEnergistics
-[15:00:56] [Sound Library Loader/INFO]: Sound engine started
-[15:00:56] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[15:00:56] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[15:00:56] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:LyokoEnergistics
-[15:00:56] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[15:00:56] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[15:00:57] [Sound Library Loader/INFO]: Sound engine started
-[15:01:10] [Client thread/INFO]: Stopping!
+[15:20:45] [main/INFO]: Setting user: Player814
+[15:20:46] [Client thread/INFO]: LWJGL Version: 2.9.1
+[15:20:49] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Lyoko Energistics
+[15:20:49] [Sound Library Loader/INFO]: Sound engine started
+[15:20:50] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[15:20:50] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[15:20:50] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Lyoko Energistics
+[15:20:50] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[15:20:50] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[15:20:51] [Sound Library Loader/INFO]: Sound engine started

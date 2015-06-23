@@ -2,9 +2,9 @@
 {
   "modid": "LyokoEnergistics",
   "name": "Lyoko Energistics",
-  "description": "code lyoko ",
-  "version": "0.0.01",
-  "mcversion": "1.7.10",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["xavier0014"],

@@ -4,6 +4,6 @@ public class Reference {
 	
 	public static final String MOD_ID = "LyokoEnergistics";
 	public static final String MOD_NAME = "Lyoko Energistics";
-	public static final String MOD_VERSION = "0.0.01";
+	public static final String MOD_VERSION = "LyokoEnergistics";
 
 }
