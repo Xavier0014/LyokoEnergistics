@@ -1,0 +1,7 @@
+package com.xavier0014.gregtechnocore.proxy;
+
+public interface IProxy {
+	
+	
+	
+}

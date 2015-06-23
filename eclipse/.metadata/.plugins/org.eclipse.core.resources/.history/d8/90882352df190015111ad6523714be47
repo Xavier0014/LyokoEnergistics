@@ -1,0 +1,5 @@
+package com.xavier0014.gregtechnocore.proxy;
+
+public class ClientProxy extends CommonProxy{
+
+}
