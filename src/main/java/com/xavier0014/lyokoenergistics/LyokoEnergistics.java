@@ -15,7 +15,6 @@ public class LyokoEnergistics {
 	public static LyokoEnergistics instance;
 	
 	public void preInit(FMLPreInitializationEvent envent){
-		
 	}
 	
 	public void Init(FMLInitializationEvent envent){

@@ -7,10 +7,13 @@
   "mcversion": "1.7.10",
   "url": "",
   "updateUrl": "",
-  "authorList": ["xavier0014"],
+  "authorList": [
+  "xavier0014"
+  ],
   "credits": "",
   "logoFile": "",
-  "screenshots": [],
+  "screenshots": [
+  ],
   "dependencies": []
 }
 ]
