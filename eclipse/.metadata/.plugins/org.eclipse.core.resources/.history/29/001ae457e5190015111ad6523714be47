@@ -1,0 +1,11 @@
+package com.xavier0014.lyokoenergistics.items;
+
+import net.minecraft.item.Item;
+
+public class ItemLE extends Item{
+	
+	public ItemLE() {
+		super();
+	}
+
+}

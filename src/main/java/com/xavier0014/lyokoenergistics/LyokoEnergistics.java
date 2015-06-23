@@ -1,5 +1,6 @@
 package com.xavier0014.lyokoenergistics;
 
+import com.xavier0014.lyokoenergistics.init.*;
 import com.xavier0014.lyokoenergistics.reference.Reference;
 
 import cpw.mods.fml.common.Mod;
@@ -14,13 +15,17 @@ public class LyokoEnergistics {
 	@Mod.Instance(Reference.MOD_ID)
 	public static LyokoEnergistics instance;
 	
+	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent envent){
+		ModItem.init();
 	}
 	
+	@Mod.EventHandler
 	public void Init(FMLInitializationEvent envent){
 		
 	}
 	
+	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent envent){
 		
 	}

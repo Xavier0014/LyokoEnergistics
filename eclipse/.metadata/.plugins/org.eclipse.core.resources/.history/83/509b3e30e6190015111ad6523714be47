@@ -1,0 +1,20 @@
+package com.xavier0014.lyokoenergistics.items;
+
+import com.xavier0014.lyokoenergistics.reference.Reference;
+
+public class MatterIngot extends ItemLE{
+	
+	public MatterIngot(String name) {
+		super(name);
+	}
+	
+	@Override
+	public String getUnlocalizedName(){
+		return String.format("item.%s%s", Reference.MOD_ID + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+	}
+	
+	protected String getUnwrappedUnlocalizedName(String unlocalizedName){
+        return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
+ }
+
+}

@@ -1,0 +1,11 @@
+package com.xavier0014.lyokoenergistics.items;
+
+import com.xavier0014.lyokoenergistics.reference.Reference;
+
+public class MatterIngot extends ItemLE{
+	
+	public MatterIngot(String name) {
+		super("lyokoenergistics:" +name);
+	}
+	
+}
