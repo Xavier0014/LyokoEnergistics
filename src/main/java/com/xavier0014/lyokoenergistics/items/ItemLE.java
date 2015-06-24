@@ -1,5 +1,6 @@
 package com.xavier0014.lyokoenergistics.items;
 
+import com.xavier0014.lyokoenergistics.LyokoEnergistics;
 import com.xavier0014.lyokoenergistics.reference.Reference;
 
 import cpw.mods.fml.relauncher.Side;
@@ -17,6 +18,7 @@ public class ItemLE extends Item{
 		this.name = name;
 		this.setUnlocalizedName(Reference.MOD_id +":"+name);
 		unlocalizedname = this.getUnlocalizedName();
+		this.setCreativeTab(LyokoEnergistics.lyokotab);
 		
 	}
 	

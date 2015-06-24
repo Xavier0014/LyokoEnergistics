@@ -4,3 +4,5 @@ item.lyokoenergistics:unmondesansdanger.name=Un Monde Sans Danger
 
 tile.lyokoenergistics:supercomputer.name= Supercomputer[WIP]
 tile.lyokoenergistics:materializationscanner.name= Materialization Scanner[WIP]
+
+itemGroup.lyokoenergistics_tabs= Lyoko Energistics

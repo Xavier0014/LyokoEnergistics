@@ -1,5 +1,7 @@
 package com.xavier0014.lyokoenergistics.blocks;
 
+import com.xavier0014.lyokoenergistics.LyokoEnergistics;
+import com.xavier0014.lyokoenergistics.creativetabs.LECreativeTabs;
 import com.xavier0014.lyokoenergistics.reference.Reference;
 
 import cpw.mods.fml.relauncher.Side;
@@ -16,6 +18,7 @@ public class BlockLE extends Block{
 		super(Material.iron);
 		this.name = name;
 		this.setBlockName(Reference.MOD_id +":"+name);
+		this.setCreativeTab(LyokoEnergistics.lyokotab);
 	}
 	
 	@Override
