@@ -2,12 +2,13 @@ package com.xavier0014.lyokoenergistics.init;
 
 import com.xavier0014.lyokoenergistics.items.*;
 import com.xavier0014.lyokoenergistics.items.record.*;
+import com.xavier0014.lyokoenergistics.reference.Reference;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModItem {
 	
-	public static final ItemLE matteringot = new ItemLE("matteringot");
+	public static final ItemLE matteringot = (ItemLE) new ItemLE("matteringot");
 	public static final RecordLE UnMondeSansDanger = new RecordLE("unmondesansdanger","Code Lyoko - Un monde sans danger");
 	
 	

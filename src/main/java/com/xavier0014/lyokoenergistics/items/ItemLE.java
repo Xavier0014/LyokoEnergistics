@@ -19,7 +19,6 @@ public class ItemLE extends Item{
 		this.setUnlocalizedName(Reference.MOD_id +":"+name);
 		unlocalizedname = this.getUnlocalizedName();
 		this.setCreativeTab(LyokoEnergistics.lyokotab);
-		
 	}
 	
 	@Override
@@ -27,5 +26,5 @@ public class ItemLE extends Item{
 	 public void registerIcons(IIconRegister iconRegister){
 	     itemIcon = iconRegister.registerIcon(this.unlocalizedname.substring(this.unlocalizedname.indexOf(".") + 1));
 	 }
-
+	
 }

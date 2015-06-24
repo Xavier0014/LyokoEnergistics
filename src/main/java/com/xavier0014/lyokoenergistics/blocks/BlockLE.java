@@ -17,7 +17,7 @@ public class BlockLE extends Block{
 	public BlockLE(String name) {
 		super(Material.iron);
 		this.name = name;
-		this.setBlockName(Reference.MOD_id +":"+name);
+		setBlockName(Reference.MOD_id +":"+name);
 		this.setCreativeTab(LyokoEnergistics.lyokotab);
 	}
 	

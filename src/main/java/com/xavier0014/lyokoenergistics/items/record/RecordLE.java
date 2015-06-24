@@ -26,7 +26,7 @@ public class RecordLE extends ItemRecord{
 	public RecordLE(String name) {
 		super(name);
 		this.name = name;
-		this.setUnlocalizedName(Reference.MOD_id +":"+name);
+		setUnlocalizedName(Reference.MOD_id +":"+name);
 		 map.put("records." + name, this);
 		 unlocalizedname = this.getUnlocalizedName();
 	}
