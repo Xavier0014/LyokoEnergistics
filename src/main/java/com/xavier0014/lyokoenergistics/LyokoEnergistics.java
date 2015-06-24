@@ -18,6 +18,7 @@ public class LyokoEnergistics {
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent envent){
 		ModItem.init();
+		ModBlock.init();
 	}
 	
 	@Mod.EventHandler

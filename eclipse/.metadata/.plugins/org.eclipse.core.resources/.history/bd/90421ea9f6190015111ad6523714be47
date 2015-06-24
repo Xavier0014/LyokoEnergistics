@@ -1,0 +1,9 @@
+package com.xavier0014.lyokoenergistics.init;
+
+import com.xavier0014.lyokoenergistics.blocks.*;
+
+public class ModBlock {
+	
+	public static final BlockLE supercomputer = new BlockLE("supercomputer");
+
+}

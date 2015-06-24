@@ -1,3 +1,6 @@
 item.lyokoenergistics:matteringot.name=Matter Ingot
 
 item.lyokoenergistics:unmondesansdanger.name=Un Monde Sans Danger
+
+tile.lyokoenergistics:supercomputer.name= Supercomputer[WIP]
+tile.lyokoenergistics:materializationscanner.name= Materialization Scanner[WIP]
