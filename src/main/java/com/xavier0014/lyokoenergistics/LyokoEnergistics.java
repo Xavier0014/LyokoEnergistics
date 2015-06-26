@@ -33,7 +33,9 @@ public class LyokoEnergistics {
 	
 	@Mod.EventHandler
 	public void Init(FMLInitializationEvent envent){
+		ModTileEntity.tileinit();
 		
+		proxy.registerRender();
 	}
 	
 	@Mod.EventHandler
