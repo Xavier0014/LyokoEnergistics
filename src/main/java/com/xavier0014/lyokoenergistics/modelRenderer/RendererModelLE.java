@@ -32,6 +32,7 @@ public class RendererModelLE extends TileEntitySpecialRenderer{
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5D, y + 1.5D, z + 0.5D);
 		GL11.glRotated(180D, 0.0D, 0.0D, 1.0D);
+		GL11.glRotated(90D * entity.getDirection()+180, 0.0D, 1.0D, 0.0D);
 		this.bindTexture(texture);
 		this.model.render();
 		GL11.glPopMatrix();

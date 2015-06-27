@@ -17,4 +17,6 @@ public class RendererMaterializationScanner extends RendererModelLE{
 		super(new ResourceLocation(Reference.MOD_id, "models/blocks/materializationscanner.png"), new ModelMaterializationScanner());
 	}
 	
+	
+	
 }
