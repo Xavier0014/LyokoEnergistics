@@ -1,7 +1,9 @@
 package com.xavier0014.lyokoenergistics;
 
+import sun.util.logging.resources.logging;
 import net.minecraft.creativetab.CreativeTabs;
 
+import com.xavier0014.lyokoenergistics.handler.GuiHandler;
 import com.xavier0014.lyokoenergistics.creativetabs.LECreativeTabs;
 import com.xavier0014.lyokoenergistics.init.*;
 import com.xavier0014.lyokoenergistics.proxy.IProxy;
@@ -12,6 +14,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
@@ -29,6 +32,7 @@ public class LyokoEnergistics {
 	public void preInit(FMLPreInitializationEvent envent){
 		ModItem.init();
 		ModBlock.init();
+		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 	}
 	
 	@Mod.EventHandler

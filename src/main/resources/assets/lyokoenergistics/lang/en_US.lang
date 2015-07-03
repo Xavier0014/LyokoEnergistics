@@ -8,3 +8,5 @@ tile.lyokoenergistics:materializationscanner.name=Materialization Scanner[WIP]
 itemGroup.lyokoenergistics_tabs=Lyoko Energistics
 
 item.record.unmondesansdanger.desc=Un Monde Sans Danger
+
+tile.materializationscanner=Materialization Scanner[WIP]
