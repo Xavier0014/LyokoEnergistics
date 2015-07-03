@@ -1,8 +1,15 @@
 package com.xavier0014.lyokoenergistics.tileentity;
 
+import com.xavier0014.lyokoenergistics.blocks.MaterializationScanner;
+import com.xavier0014.lyokoenergistics.init.ModItem;
+import com.xavier0014.lyokoenergistics.items.ItemLE;
+import com.xavier0014.lyokoenergistics.recipes.RecipesMaterializationScanner;
+
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.tileentity.IEnergyInfo;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -14,7 +21,8 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	
 	private ItemStack[] contenu = new ItemStack[2];
 	private String customName;
-	public String storedenergie = "0";
+	private int workingTime = 0; 
+	private int workingTimeNeeded = 20;
 	
 	
 	@Override
@@ -36,8 +44,12 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
                 this.contenu[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
+        this.workingTime = compound.getShort("workingTime"); //On lit nos valeurs
+        this.workingTimeNeeded = compound.getShort("workingTimeNeeded");
     }
 
+	
+	
     @Override
     public void writeToNBT(NBTTagCompound compound){
     	 super.writeToNBT(compound);
@@ -58,7 +70,14 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
          {
              compound.setString("CustomName", this.customName);
          }
+         
+         compound.setTag("Items", nbttaglist);
+         compound.setShort("workingTime",(short)this.workingTime); 
+         compound.setShort("workingTimeNeeded", (short)this.workingTimeNeeded);
     }
+    
+    //-----------------------------------------------------------------------------
+    
 
 	@Override
 	public int getSizeInventory() {
@@ -149,18 +168,18 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	
 	@Override
 	public void openInventory() {
-		storedenergie = String.valueOf(storage.getEnergyStored());
 	}
 
 	@Override
 	public void closeInventory() {	
-		storedenergie = "10";
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+	public boolean isItemValidForSlot(int p_94041_1_, ItemStack stack) {
 		return true;
 	}
+	
+	//-----------------------------------------------------------------------------
 	
 	private EnergyStorage storage = new EnergyStorage(50000,80,0);
 	
@@ -188,8 +207,75 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
-		// TODO Auto-generated method stub
 		return storage.getMaxEnergyStored();
+	}
+	
+	//-----------------------------------------------------------------------------
+	
+	public boolean isProcessing(){
+		return this.workingTime > 0;
+	}
+
+	private boolean canSmelt(){
+		if (this.contenu[1] == null){
+			return false;
+		}
+		else{
+			ItemStack itemstack = RecipesMaterializationScanner.smelting().getSmeltingResult(new ItemStack[]{this.contenu[1]});
+			if (itemstack == null) {
+				return false; 						
+			}
+			if (this.contenu[0] == null) {
+				return true; 					
+			}
+			if (!this.contenu[0].isItemEqual(itemstack)) {
+				return false;  
+			}
+			int result = contenu[0].stackSize + itemstack.stackSize;
+			return result <= getInventoryStackLimit() && result <= this.contenu[1].getMaxStackSize(); 
+		}
+
+	}
+	
+	public void updateEntity(){ //Méthode exécutée à chaque tick
+    	if(this.isProcessing() && this.canSmelt() ){ //processing  && this.getEnergyStored(null) >= 200
+    		this.workingTime++;
+    		storage.setEnergyStored(storage.getEnergyStored()-80); 
+    	}
+    	if(this.canSmelt() && !this.isProcessing()){ 
+    		this.workingTime = 1; 
+    	}
+    	if(this.canSmelt() && this.workingTime == this.workingTimeNeeded){
+    		this.smeltItem(); 
+    		this.workingTime = 0; 
+    	}
+        if(!this.canSmelt()){ 
+               this.workingTime= 0; 
+        }
+    }
+	
+	public void smeltItem(){
+        if (this.canSmelt()){
+            ItemStack itemstack = RecipesMaterializationScanner.smelting().getSmeltingResult(new ItemStack[]{this.contenu[1]}); //On récupère l'output de la recette
+             if (this.contenu[0] == null) {
+                  this.contenu[0] = itemstack.copy(); 
+             }
+             else if (this.contenu[0].getItem() == itemstack.getItem()) {
+                  this.contenu[0].stackSize += itemstack.stackSize;
+             }
+
+             --this.contenu[1].stackSize;
+
+             if (this.contenu[1].stackSize <= 0){
+                 this.contenu[1] = null;
+             }
+        }
+    }
+	
+	@SideOnly(Side.CLIENT)
+	public int getCookProgress()
+	{
+		return this.workingTime * 21 / this.workingTimeNeeded; //41 correspond à la hauteur de la barre de progression car notre barre de progression se déroule de haut en bas
 	}
 	
 }

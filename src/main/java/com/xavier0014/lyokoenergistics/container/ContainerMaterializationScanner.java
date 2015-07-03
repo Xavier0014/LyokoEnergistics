@@ -1,5 +1,6 @@
 package com.xavier0014.lyokoenergistics.container;
 
+import com.xavier0014.lyokoenergistics.recipes.SlotResult;
 import com.xavier0014.lyokoenergistics.tileentity.TileMaterializationScanner;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,12 +10,13 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerMaterializationScanner extends Container{
+	
 		public ContainerMaterializationScanner(TileMaterializationScanner tile,InventoryPlayer inventory) {
 		this.tilems = tile;
 		tile.openInventory();
 		
-	     this.addSlotToContainer(new Slot(tile, 0 , 41, 46));
-	     this.addSlotToContainer(new Slot(tile, 1 , 41, -1));
+	     this.addSlotToContainer(new SlotResult(tile, 0 , 41, 47));
+	     this.addSlotToContainer(new Slot(tile, 1 , 41, 0));
 	     
 		 this.bindPlayerInventory(inventory);
 	}
@@ -22,12 +24,12 @@ public class ContainerMaterializationScanner extends Container{
 	private void bindPlayerInventory(InventoryPlayer inventory){
 		 for (int j = 0; j < 3; ++j){
 	         for (int k = 0; k < 9; ++k){
-	             this.addSlotToContainer(new Slot(inventory, k + j * 9 +9, 8 + k * 18 - 39, 103 + j * 18 -12));
+	             this.addSlotToContainer(new Slot(inventory, k + j * 9 +9, 8 + k * 18 - 39, 103 + j * 18 -11));
 	         }
 	     }
 
 	     for (int j = 0; j < 9; ++j){
-	         this.addSlotToContainer(new Slot(inventory, j, 8 + j * 18 - 39, 149));
+	         this.addSlotToContainer(new Slot(inventory, j, 8 + j * 18 - 39, 150));
 	     }
 	 }
 	private final TileMaterializationScanner tilems;

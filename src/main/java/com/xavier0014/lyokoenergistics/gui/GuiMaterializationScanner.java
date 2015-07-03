@@ -18,7 +18,7 @@ public class GuiMaterializationScanner extends GuiContainer{
     private TileMaterializationScanner tilems;
     private InventoryPlayer playerInv;
     protected int xSize = 254;
-    protected int ySize = 181;
+    protected int ySize = 180;
 
 	public GuiMaterializationScanner(TileMaterializationScanner tile, InventoryPlayer inventory) {
 		super(new ContainerMaterializationScanner(tile, inventory));
@@ -30,6 +30,11 @@ public class GuiMaterializationScanner extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_){
         this.fontRendererObj.drawString(this.tilems.hasCustomInventoryName() ? this.tilems.getInventoryName() : I18n.format(this.tilems.getInventoryName()), 8 + 55, 28 -26, 4210752);
         this.fontRendererObj.drawString(this.playerInv.hasCustomInventoryName() ? this.playerInv.getInventoryName() : I18n.format(this.playerInv.getInventoryName()), -10, this.ySize - 105, 4210752);
+        if(this.tilems.isProcessing())
+        {
+        	int i = this.tilems.getCookProgress(); //Nous créerons cette fonction après
+        	this.drawTexturedModalRect(5,27, 7, 71, 18, 24);
+        }
 	}
 	
 	@Override
@@ -44,7 +49,6 @@ public class GuiMaterializationScanner extends GuiContainer{
 	@Override
 	 public void initGui(){
 	        super.initGui();
-	        this.fontRendererObj.drawString(this.tilems.storedenergie, -10, this.ySize - 120, 4210752);
 	 }
 
 }
