@@ -1,6 +1,7 @@
 package com.xavier0014.lyokoenergistics.tileentity;
 
 import com.xavier0014.lyokoenergistics.blocks.MaterializationScanner;
+import com.xavier0014.lyokoenergistics.gui.GuiMaterializationScanner;
 import com.xavier0014.lyokoenergistics.init.ModItem;
 import com.xavier0014.lyokoenergistics.items.ItemLE;
 import com.xavier0014.lyokoenergistics.recipes.RecipesMaterializationScanner;
@@ -12,6 +13,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -22,7 +24,8 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	private ItemStack[] contenu = new ItemStack[2];
 	private String customName;
 	private int workingTime = 0; 
-	private int workingTimeNeeded = 20;
+	private int workingTimeNeeded;
+	public int craft = 0; 
 	
 	
 	@Override
@@ -46,6 +49,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
         }
         this.workingTime = compound.getShort("workingTime"); //On lit nos valeurs
         this.workingTimeNeeded = compound.getShort("workingTimeNeeded");
+       
     }
 
 	
@@ -211,17 +215,20 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	}
 	
 	//-----------------------------------------------------------------------------
+	public ItemStack itemstack;
+	public ItemStack input;
 	
 	public boolean isProcessing(){
 		return this.workingTime > 0;
 	}
 
 	private boolean canSmelt(){
+
 		if (this.contenu[1] == null){
-			return false;
+		return false;
 		}
 		else{
-			ItemStack itemstack = RecipesMaterializationScanner.smelting().getSmeltingResult(new ItemStack[]{this.contenu[1]});
+	
 			if (itemstack == null) {
 				return false; 						
 			}
@@ -232,31 +239,51 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 				return false;  
 			}
 			int result = contenu[0].stackSize + itemstack.stackSize;
-			return result <= getInventoryStackLimit() && result <= this.contenu[1].getMaxStackSize(); 
-		}
-
+			return result <= getInventoryStackLimit(); 
+			}
 	}
 	
+	public int i = 0; 
+	@Override
 	public void updateEntity(){ //Méthode exécutée à chaque tick
-    	if(this.isProcessing() && this.canSmelt() ){ //processing  && this.getEnergyStored(null) >= 200
-    		this.workingTime++;
-    		storage.setEnergyStored(storage.getEnergyStored()-80); 
-    	}
-    	if(this.canSmelt() && !this.isProcessing()){ 
-    		this.workingTime = 1; 
-    	}
-    	if(this.canSmelt() && this.workingTime == this.workingTimeNeeded){
-    		this.smeltItem(); 
-    		this.workingTime = 0; 
-    	}
-        if(!this.canSmelt()){ 
-               this.workingTime= 0; 
-        }
+		itemstack = RecipesMaterializationScanner.smelting().result.get(craft);
+		input = RecipesMaterializationScanner.smelting().input.get(craft);
+		setWorkingTimeNeeded((Integer) RecipesMaterializationScanner.smelting().time.get(craft));
+    	switch (i) {
+			case 1://output result
+				System.out.println("output");
+				this.smeltItem(); 
+	    		i = 0;
+				break;
+			case 2://processing
+				System.out.println("processing");
+	    		this.workingTime++;
+	    		storage.setEnergyStored(storage.getEnergyStored()-80); 
+	    		if(this.workingTime >= this.workingTimeNeeded){
+	    			i = 1;
+	    		}
+	    		
+	    		if(contenu[1]==null){
+					i = 0;
+				}
+	    		
+				break;
+			case 3://start process
+				this.workingTime = 1; 
+	    		i = 2;
+				break;
+		default:
+            this.workingTime= 0; 
+			if(this.canSmelt() && !this.isProcessing()){
+				i = 3;
+			}
+			break;
+		}
+    	
     }
 	
 	public void smeltItem(){
         if (this.canSmelt()){
-            ItemStack itemstack = RecipesMaterializationScanner.smelting().getSmeltingResult(new ItemStack[]{this.contenu[1]}); //On récupère l'output de la recette
              if (this.contenu[0] == null) {
                   this.contenu[0] = itemstack.copy(); 
              }
@@ -269,13 +296,24 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
              if (this.contenu[1].stackSize <= 0){
                  this.contenu[1] = null;
              }
+             
         }
     }
 	
-	@SideOnly(Side.CLIENT)
-	public int getCookProgress()
-	{
-		return this.workingTime * 21 / this.workingTimeNeeded; //41 correspond à la hauteur de la barre de progression car notre barre de progression se déroule de haut en bas
+
+	
+	public void setWorkingTimeNeeded(int time){
+		this.workingTimeNeeded = time;
 	}
+	
+	public int getWorkingTimeNeeded(){
+		return workingTimeNeeded;
+	}
+	
+	public int getWorkingTime(){
+		return workingTime;
+	}
+	
+	
 	
 }

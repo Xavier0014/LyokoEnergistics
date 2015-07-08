@@ -11,12 +11,14 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerMaterializationScanner extends Container{
 	
+	private final TileMaterializationScanner tilems;
 		public ContainerMaterializationScanner(TileMaterializationScanner tile,InventoryPlayer inventory) {
 		this.tilems = tile;
 		tile.openInventory();
 		
 	     this.addSlotToContainer(new SlotResult(tile, 0 , 41, 47));
 	     this.addSlotToContainer(new Slot(tile, 1 , 41, 0));
+	     
 	     
 		 this.bindPlayerInventory(inventory);
 	}
@@ -32,7 +34,7 @@ public class ContainerMaterializationScanner extends Container{
 	         this.addSlotToContainer(new Slot(inventory, j, 8 + j * 18 - 39, 150));
 	     }
 	 }
-	private final TileMaterializationScanner tilems;
+	
 	
 
 
@@ -46,9 +48,9 @@ public class ContainerMaterializationScanner extends Container{
         ItemStack itemstack = null;
         Slot slot = (Slot)this.inventorySlots.get(slotindex);
 
-        if (slot != null && slot.getHasStack()){
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
+       if (slot != null && slot.getHasStack()){
+           ItemStack itemstack1 = slot.getStack();
+           itemstack = itemstack1.copy();
 
             if (slotindex < this.tilems.getSizeInventory()){
                 if (!this.mergeItemStack(itemstack1, this.tilems.getSizeInventory(), this.inventorySlots.size(), true)){
@@ -68,6 +70,10 @@ public class ContainerMaterializationScanner extends Container{
         }
 
         return itemstack;
+	}
+	
+	public TileMaterializationScanner getTileMaterializationScanner(){
+		return tilems;
 	}
 
 }
