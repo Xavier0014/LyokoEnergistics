@@ -29,6 +29,7 @@ public class GuiMaterializationScanner extends GuiContainer{
     protected int ySize = 180;
     private int k;
     private int l;
+    private int buttonid; 
     
 	public GuiMaterializationScanner(TileMaterializationScanner tile, InventoryPlayer inventory) {
 		super(new ContainerMaterializationScanner(tile, inventory));
@@ -39,20 +40,25 @@ public class GuiMaterializationScanner extends GuiContainer{
 	
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_){
         this.fontRendererObj.drawString(this.tilems.hasCustomInventoryName() ? this.tilems.getInventoryName() : I18n.format(this.tilems.getInventoryName()), 8 + 55, 28 -26, 4210752);
-        this.fontRendererObj.drawString(this.playerInv.hasCustomInventoryName() ? this.playerInv.getInventoryName() : I18n.format(this.playerInv.getInventoryName()), -10, this.ySize - 105, 4210752);
+        this.fontRendererObj.drawString(this.playerInv.hasCustomInventoryName() ? this.playerInv.getInventoryName() : I18n.format(this.playerInv.getInventoryName()), -10, this.ySize - 100, 4210752);
+        this.fontRendererObj.drawString("Time : " + RecipesMaterializationScanner.smelting().time.get(buttonid), -10, this.ySize - 155, 4210752);
 	}
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialRenderTick,int x, int y) {
 		buttonList.clear();
 		int progress;
+		int energie;
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(texture);
-        k = (this.width - this.xSize)/2;
+        int k = (this.width - this.xSize)/2;
         int l = (this.height - this.ySize)/2;
+        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
         buttonList.add(new GuiButton(0, k+174, l+29, 74, 20, "diamond"));//id,x,y,size x,size y, name  
         buttonList.add(new GuiButton(1, k+174, l+49, 74, 20, "iron"));
-        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+        energie = tilems.getEnergyStored(null)*61;
+    	energie = energie/tilems.getMaxEnergyStored(null);
+    	this.drawTexturedModalRect(k+7, l+31, 19, 182, 17, energie);
         if (this.tilems.isProcessing()){
            progress = tilems.getWorkingTime()*24;
            progress = progress/tilems.getWorkingTimeNeeded();
@@ -69,6 +75,7 @@ public class GuiMaterializationScanner extends GuiContainer{
 	public void actionPerformed(GuiButton button){
 		LyokoEnergistics.network.sendToServer(new PacketMaterializationScanner(button.id));
 		tilems.craft = button.id;
+		buttonid = button.id;
 	}
 
 }

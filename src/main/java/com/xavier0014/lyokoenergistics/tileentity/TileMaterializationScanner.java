@@ -49,6 +49,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
         }
         this.workingTime = compound.getShort("workingTime"); //On lit nos valeurs
         this.workingTimeNeeded = compound.getShort("workingTimeNeeded");
+        storage.readFromNBT(compound);
        
     }
 
@@ -78,6 +79,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
          compound.setTag("Items", nbttaglist);
          compound.setShort("workingTime",(short)this.workingTime); 
          compound.setShort("workingTimeNeeded", (short)this.workingTimeNeeded);
+         storage.writeToNBT(compound);
     }
     
     //-----------------------------------------------------------------------------
@@ -172,6 +174,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	
 	@Override
 	public void openInventory() {
+		storage.setEnergyStored(storage.getEnergyStored()+1000); 
 	}
 
 	@Override
@@ -223,11 +226,12 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	}
 
 	private boolean canSmelt(){
-
+		
 		if (this.contenu[1] == null){
 		return false;
 		}
 		else{
+		if (contenu[1].isItemEqual(input)){
 	
 			if (itemstack == null) {
 				return false; 						
@@ -241,30 +245,35 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 			int result = contenu[0].stackSize + itemstack.stackSize;
 			return result <= getInventoryStackLimit(); 
 			}
+		 }
+		
+		return false;
 	}
 	
 	public int i = 0; 
 	@Override
 	public void updateEntity(){ //Méthode exécutée à chaque tick
-		itemstack = RecipesMaterializationScanner.smelting().result.get(craft);
-		input = RecipesMaterializationScanner.smelting().input.get(craft);
+		this.itemstack = RecipesMaterializationScanner.smelting().result.get(craft);
+		this.input = RecipesMaterializationScanner.smelting().input.get(craft);
 		setWorkingTimeNeeded((Integer) RecipesMaterializationScanner.smelting().time.get(craft));
     	switch (i) {
 			case 1://output result
-				System.out.println("output");
 				this.smeltItem(); 
 	    		i = 0;
 				break;
 			case 2://processing
-				System.out.println("processing");
-	    		this.workingTime++;
-	    		storage.setEnergyStored(storage.getEnergyStored()-80); 
-	    		if(this.workingTime >= this.workingTimeNeeded){
-	    			i = 1;
-	    		}
+				if (storage.getEnergyStored() > 200) {
+					this.workingTime++;
+					storage.modifyEnergyStored(-80);
+					if(this.workingTime >= this.workingTimeNeeded){
+						i = 1;
+					}
 	    		
-	    		if(contenu[1]==null){
-					i = 0;
+					if(contenu[1]==null){
+						i = 0;
+					}
+				}else if(contenu[1]==null){
+					i =0;
 				}
 	    		
 				break;
@@ -274,7 +283,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 				break;
 		default:
             this.workingTime= 0; 
-			if(this.canSmelt() && !this.isProcessing()){
+			if(this.canSmelt() && !this.isProcessing() && storage.getEnergyStored() > 200){
 				i = 3;
 			}
 			break;
