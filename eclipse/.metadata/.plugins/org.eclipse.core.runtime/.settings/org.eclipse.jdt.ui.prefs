@@ -1,7 +1,9 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="net.minecraft.item.Item"><rhs name\="com.xavier0014.lyokoenergistics.items.ItemLE"/><rhs name\="com.xavier0014.lyokoenergistics.items.MatterIngot"/><rhs name\="net.minecraft.item.Item"/></lhs><lhs name\="com.xavier0014.lyokoenergistics.items.ItemLE"><rhs name\="com.xavier0014.lyokoenergistics.items.ItemLE"/><rhs name\="com.xavier0014.lyokoenergistics.items.MatterIngot"/></lhs><lhs name\="net.minecraft.creativetab.CreativeTabs"><rhs name\="com.xavier0014.lyokoenergistics.creativetabs.LECreativeTabs"/></lhs><lhs name\="cpw.mods.fml.common.network.IGuiHandler"><rhs name\="com.xavier0014.lyokoenergistics.handler.GuiHandler"/></lhs><lhs name\="java.lang.CharSequence"><rhs name\="java.lang.String"/></lhs><lhs name\="java.lang.Enum"><rhs name\="cpw.mods.fml.relauncher.Side"/></lhs><lhs name\="net.minecraft.client.gui.Gui"><rhs name\="net.minecraft.client.gui.GuiButton"/></lhs><lhs name\="net.minecraft.client.gui.GuiButton"><rhs name\="net.minecraft.client.gui.GuiButton"/></lhs><lhs name\="net.minecraft.inventory.Container"><rhs name\="com.xavier0014.lyokoenergistics.container.ContainerMaterializationScanner"/></lhs><lhs name\="cpw.mods.fml.common.network.simpleimpl.IMessage"><rhs name\="com.xavier0014.lyokoenergistics.packet.PacketMaterializationScanner"/></lhs></history>
 content_assist_number_of_computers=13
 content_assist_proposals_background=255,255,255
 content_assist_proposals_foreground=0,0,0
 eclipse.preferences.version=1
+editor_folding_enabled=false
 fontPropagated=true
 org.eclipse.jdt.ui.editor.tab.width=
 org.eclipse.jdt.ui.formatterprofiles.version=12

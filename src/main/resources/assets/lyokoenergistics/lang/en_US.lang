@@ -1,12 +1,14 @@
 item.lyokoenergistics:matteringot.name=Matter Ingot
+item.lyokoenergistics:quantumprocessor.name=Quantum Processor
+
 
 item.lyokoenergistics:unmondesansdanger.name=Un Monde Sans Danger
 
 tile.lyokoenergistics:supercomputer.name=Supercomputer[WIP]
-tile.lyokoenergistics:materializationscanner.name=Materialization Scanner[WIP]
+tile.lyokoenergistics:materializationscanner.name=Materialization Scanner
 
 itemGroup.lyokoenergistics_tabs=Lyoko Energistics
 
 item.record.unmondesansdanger.desc=Un Monde Sans Danger
 
-tile.materializationscanner=Materialization Scanner[WIP]
+tile.materializationscanner=Materialization Scanner

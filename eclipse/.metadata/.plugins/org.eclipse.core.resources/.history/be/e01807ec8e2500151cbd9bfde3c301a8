@@ -1,0 +1,5 @@
+package com.xavier0014.lyokoenergistics.packet;
+
+public class PacketMaterializationScanner {
+
+}

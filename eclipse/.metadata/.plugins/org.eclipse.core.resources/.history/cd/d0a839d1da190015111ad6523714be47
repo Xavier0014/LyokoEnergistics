@@ -1,7 +1,0 @@
-package com.xavier0014.lyokoenergistics.reference;
-
-public class Reference {
-	
-	public static final String MOD_ID = "LyokoEnergistics";
-
-}

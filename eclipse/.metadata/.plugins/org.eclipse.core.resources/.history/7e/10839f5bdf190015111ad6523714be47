@@ -1,5 +1,0 @@
-package com.xavier0014.gregtechnocore.proxy;
-
-public abstract class CommonProxy implements IProxy{
-
-}

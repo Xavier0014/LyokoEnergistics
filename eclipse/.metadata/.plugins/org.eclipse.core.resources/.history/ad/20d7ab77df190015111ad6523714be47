@@ -1,9 +1,0 @@
-package com.xavier0014.gregtechnocore.proxy;
-
-import com.xavier0014.gregtechnocore.GregTechnoCore;
-
-import cpw.mods.fml.common.network.NetworkRegistry;
-
-public class ServerProxy extends CommonProxy{
-	
-}

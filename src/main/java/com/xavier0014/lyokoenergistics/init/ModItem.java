@@ -9,6 +9,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ModItem {
 	
 	public static final ItemLE matteringot = (ItemLE) new ItemLE("matteringot");
+	public static final ItemLE quantumprocessor = (ItemLE) new ItemLE("quantumprocessor");
 	public static final RecordLE UnMondeSansDanger = new RecordLE("unmondesansdanger","Code Lyoko - Un monde sans danger");
 	
 	
@@ -16,6 +17,7 @@ public class ModItem {
 		
 		GameRegistry.registerItem(matteringot, "matteringot");
 		GameRegistry.registerItem(UnMondeSansDanger, "UnMondeSansDanger");
+		GameRegistry.registerItem(quantumprocessor, "quantumprocessor");
 	}
 
 }

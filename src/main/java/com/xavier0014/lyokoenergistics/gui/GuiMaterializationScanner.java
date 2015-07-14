@@ -41,7 +41,16 @@ public class GuiMaterializationScanner extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_){
         this.fontRendererObj.drawString(this.tilems.hasCustomInventoryName() ? this.tilems.getInventoryName() : I18n.format(this.tilems.getInventoryName()), 8 + 55, 28 -26, 4210752);
         this.fontRendererObj.drawString(this.playerInv.hasCustomInventoryName() ? this.playerInv.getInventoryName() : I18n.format(this.playerInv.getInventoryName()), -10, this.ySize - 100, 4210752);
-        this.fontRendererObj.drawString("Time : " + RecipesMaterializationScanner.smelting().time.get(buttonid), -10, this.ySize - 155, 4210752);
+        this.fontRendererObj.drawString("Needed", 70, this.ySize - 165, 4210752);
+        this.fontRendererObj.drawString("energie:", 70, this.ySize - 150, 4210752);
+        this.fontRendererObj.drawString(String.valueOf(RecipesMaterializationScanner.smelting().time.get(tilems.craft)), 70, this.ySize - 140, 4210752);
+        this.fontRendererObj.drawString("Matter:", 70, this.ySize - 125, 4210752);
+        this.fontRendererObj.drawString(String.valueOf(tilems.matter), 70, this.ySize - 115, 4210752);
+        this.fontRendererObj.drawString("energie:", -10, this.ySize - 150, 4210752);
+        this.fontRendererObj.drawString(String.valueOf(tilems.getEnergyStored(null)), -10, this.ySize - 140, 4210752);
+        this.fontRendererObj.drawString("Matter:", -10, this.ySize - 125, 4210752);
+        this.fontRendererObj.drawString(String.valueOf(tilems.nomberMB), -10, this.ySize - 115, 4210752);
+        this.fontRendererObj.drawString("Stored", -10, this.ySize - 165, 4210752);
 	}
 	
 	@Override
@@ -56,6 +65,8 @@ public class GuiMaterializationScanner extends GuiContainer{
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
         buttonList.add(new GuiButton(0, k+174, l+29, 74, 20, "diamond"));//id,x,y,size x,size y, name  
         buttonList.add(new GuiButton(1, k+174, l+49, 74, 20, "iron"));
+        buttonList.add(new GuiButton(2, k+174, l+69, 74, 20, "gold"));
+        buttonList.add(new GuiButton(3, k+174, l+89, 74, 20, "matter ingot"));
         energie = tilems.getEnergyStored(null)*61;
     	energie = energie/tilems.getMaxEnergyStored(null);
     	this.drawTexturedModalRect(k+7, l+31, 19, 182, 17, energie);
@@ -64,12 +75,11 @@ public class GuiMaterializationScanner extends GuiContainer{
            progress = progress/tilems.getWorkingTimeNeeded();
            this.drawTexturedModalRect(k+80, l+27, 1, 181, 18, progress);
         }
-        
 	}
 	
 	@Override
 	 public void initGui(){
-		super.initGui();    
+		super.initGui();
 	}
 	@Override
 	public void actionPerformed(GuiButton button){

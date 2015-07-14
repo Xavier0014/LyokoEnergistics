@@ -23,7 +23,7 @@ import cpw.mods.fml.relauncher.Side;
 
 
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = "")
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = "required-after:appliedenergistics2")
 public class LyokoEnergistics {
 	
 	@Mod.Instance(Reference.MOD_ID)
@@ -48,7 +48,6 @@ public class LyokoEnergistics {
 	@Mod.EventHandler
 	public void Init(FMLInitializationEvent envent){
 		ModTileEntity.tileinit();
-		
 		proxy.registerRender();
 	}
 	

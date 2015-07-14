@@ -1,9 +1,0 @@
-package com.xavier0014.lyokoenergistics.init;
-
-import com.xavier0014.lyokoenergistics.items.record.*;
-
-public class ModItems {
-	
-	public static final LErecord record = new LErecord("record");
-
-}
