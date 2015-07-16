@@ -54,7 +54,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
         }
         this.workingTime = compound.getShort("workingTime"); //On lit nos valeurs
         this.workingTimeNeeded = compound.getShort("workingTimeNeeded");
-        this.workingTimeNeeded = compound.getShort("nomberMB");
+        this.nomberMB = compound.getShort("nomberMB");
         this.craft = compound.getShort("craft");
         this.matter = compound.getShort("matter");
         storage.readFromNBT(compound);
@@ -135,14 +135,12 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slotIndex) {
-		if (this.contenu[slotIndex] != null)
-        {
+		if (this.contenu[slotIndex] != null){
             ItemStack itemstack = this.contenu[slotIndex];
             this.contenu[slotIndex] = null;
             return itemstack;
         }
-        else
-        {
+        else{
             return null;
         }
 	}
@@ -200,8 +198,6 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	
 	private EnergyStorage storage = new EnergyStorage(100000,80,0);
 	
-	private int energie;
-
 	@Override
 	public boolean canConnectEnergy(ForgeDirection from) {
 		return true;

@@ -6,7 +6,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModBlock {
 	
-	public static final BlockLE supercomputer = new BlockLE("supercomputer");
+	public static final BlockLE supercomputer = new SuperComputer("supercomputer");
 	public static final BlockLE materializationscanner = new MaterializationScanner("materializationscanner");
 	
 	public static void init(){

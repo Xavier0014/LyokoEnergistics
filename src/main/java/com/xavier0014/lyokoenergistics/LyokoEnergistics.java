@@ -9,6 +9,7 @@ import com.xavier0014.lyokoenergistics.handler.GuiHandler;
 import com.xavier0014.lyokoenergistics.creativetabs.LECreativeTabs;
 import com.xavier0014.lyokoenergistics.init.*;
 import com.xavier0014.lyokoenergistics.packet.PacketMaterializationScanner;
+import com.xavier0014.lyokoenergistics.packet.PacketSuperComputer;
 import com.xavier0014.lyokoenergistics.proxy.IProxy;
 import com.xavier0014.lyokoenergistics.reference.Reference;
 
@@ -42,6 +43,7 @@ public class LyokoEnergistics {
 		ModBlock.init();
 		network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
 		network.registerMessage(PacketMaterializationScanner.Handler.class, PacketMaterializationScanner.class, 0, Side.SERVER);
+		network.registerMessage(PacketSuperComputer.Handler.class, PacketSuperComputer.class, 1, Side.SERVER);
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 	}
 	
