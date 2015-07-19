@@ -31,37 +31,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	public int craft = 0; 
 	public int nomberMB;
 	public int energieuse = 80;
-	
-	
-	@Override
-    public void readFromNBT(NBTTagCompound compound){
-	 super.readFromNBT(compound);
 
-        if (compound.hasKey("CustomName", 8)){
-            this.customName = compound.getString("CustomName");
-        }
-        
-        NBTTagList nbttaglist = compound.getTagList("Items", 10);
-        this.contenu = new ItemStack[this.getSizeInventory()];
-
-        for (int i = 0; i < nbttaglist.tagCount(); ++i){
-            NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-            int j = nbttagcompound1.getByte("Slot") & 255;
-
-            if (j >= 0 && j < this.contenu.length){
-                this.contenu[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-            }
-        }
-        this.workingTime = compound.getShort("workingTime"); //On lit nos valeurs
-        this.workingTimeNeeded = compound.getShort("workingTimeNeeded");
-        this.nomberMB = compound.getShort("nomberMB");
-        this.craft = compound.getShort("craft");
-        this.matter = compound.getShort("matter");
-        storage.readFromNBT(compound);
-       
-    }
-
-	
 	
     @Override
     public void writeToNBT(NBTTagCompound compound){
@@ -91,6 +61,33 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
          compound.setShort("craft", (short)this.craft);
          compound.setShort("matter", (short)this.matter);
          storage.writeToNBT(compound);
+    }
+    
+    @Override
+    public void readFromNBT(NBTTagCompound compound){
+	 super.readFromNBT(compound);
+        if (compound.hasKey("CustomName", 8)){
+            this.customName = compound.getString("CustomName");
+        }
+        
+        NBTTagList nbttaglist = compound.getTagList("Items", 10);
+        this.contenu = new ItemStack[this.getSizeInventory()];
+
+        for (int i = 0; i < nbttaglist.tagCount(); ++i){
+            NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
+            int j = nbttagcompound1.getByte("Slot") & 255;
+
+            if (j >= 0 && j < this.contenu.length){
+                this.contenu[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+            }
+        }
+        this.workingTime = compound.getShort("workingTime"); //On lit nos valeurs
+        this.workingTimeNeeded = compound.getShort("workingTimeNeeded");
+        this.nomberMB = compound.getShort("nomberMB");
+        this.craft = compound.getShort("craft");
+        this.matter = compound.getShort("matter");
+        storage.readFromNBT(compound);
+       
     }
     
     //-----------------------------------------------------------------------------
@@ -324,7 +321,5 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	public int getWorkingTime(){
 		return workingTime;
 	}
-	
-	
 	
 }

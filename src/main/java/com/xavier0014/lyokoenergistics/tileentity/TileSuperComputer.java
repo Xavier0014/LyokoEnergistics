@@ -7,6 +7,7 @@ import appeng.api.AEApi;
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.GridNotification;
 import appeng.api.networking.IGrid;
+import appeng.api.networking.IGridBlock;
 import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridMultiblock;
 import appeng.api.networking.IGridNode;
@@ -18,13 +19,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 
-public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, IInventory{
+public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, IInventory, IGridHost, IGridBlock{
 	
 	private boolean hasMaster, isMaster;
     private int masterX, masterY, masterZ;
@@ -38,9 +40,8 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
         compound.setInteger("masterZ", masterZ);
         compound.setBoolean("hasMaster", hasMaster);
         compound.setBoolean("isMaster", isMaster);
-        compound.setBoolean("onoff", onoff);
         if (hasMaster() && isMaster()) {
-        	
+        	compound.setBoolean("onoff", onoff);
         }
     }
 
@@ -52,15 +53,15 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
         masterZ = compound.getInteger("masterZ");
         hasMaster = compound.getBoolean("hasMaster");
         isMaster = compound.getBoolean("isMaster");
-        onoff = compound.getBoolean("onoff");
         if (hasMaster() && isMaster()) {
-        	
+        	onoff = compound.getBoolean("onoff");
         }
     }
 	
 	
 	@Override
     public void updateEntity() {
+		System.out.println(onoff);
         if (!worldObj.isRemote) {
             if (hasMaster()) { 
                 if (isMaster()) {
@@ -294,5 +295,82 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
 	
 	//----------------------- network -----------------------
 
+	@Override
+	public double getIdlePowerUsage() {
+		return 0;
+	}
+
+	@Override
+	public EnumSet<GridFlags> getFlags() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isWorldAccessible() {
+		return true;
+	}
+
+	@Override
+	public DimensionalCoord getLocation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AEColor getGridColor() {
+		return AEColor.Black;
+	}
+
+	@Override
+	public void onGridNotification(GridNotification notification) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setNetworkStatus(IGrid grid, int channelsInUse) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public EnumSet<ForgeDirection> getConnectableSides() {
+		return EnumSet.of(ForgeDirection.DOWN, ForgeDirection.UP, ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST);
+	}
+
+	@Override
+	public IGridHost getMachine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void gridChanged() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ItemStack getMachineRepresentation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IGridNode getGridNode(ForgeDirection dir) {
+		return AEApi.instance().createGridNode(this);
+	}
+
+	@Override
+	public AECableType getCableConnectionType(ForgeDirection dir) {
+		return getCableConnectionType(dir);
+	}
+
+	@Override
+	public void securityBreak() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

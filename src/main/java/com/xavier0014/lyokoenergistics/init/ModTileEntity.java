@@ -8,6 +8,7 @@ public class ModTileEntity {
 	
 	public static void tileinit() {
 		GameRegistry.registerTileEntity(TileMaterializationScanner.class, "lyokoenergistics:tilematerializationscanner");
+		GameRegistry.registerTileEntity(TileSuperComputer.class, "lyokoenergistics:TileSuperComputer");
 	}
 
 }
