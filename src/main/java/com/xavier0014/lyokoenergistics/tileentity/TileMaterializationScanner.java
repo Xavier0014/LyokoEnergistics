@@ -2,6 +2,7 @@ package com.xavier0014.lyokoenergistics.tileentity;
 
 import com.xavier0014.lyokoenergistics.blocks.MaterializationScanner;
 import com.xavier0014.lyokoenergistics.gui.GuiMaterializationScanner;
+import com.xavier0014.lyokoenergistics.handler.Upgrade;
 import com.xavier0014.lyokoenergistics.init.ModItem;
 import com.xavier0014.lyokoenergistics.items.ItemLE;
 import com.xavier0014.lyokoenergistics.recipes.RecipesMaterializationScanner;
@@ -31,6 +32,9 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	public int craft = 0; 
 	public int nomberMB;
 	public int energieuse = 80;
+	public double energiemultiplier = 1;
+	public double energieEfficiency = 0;
+
 
 	
     @Override
@@ -193,7 +197,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	
 	//-----------------------------------------------------------------------------
 	
-	private EnergyStorage storage = new EnergyStorage(100000,80,0);
+	private EnergyStorage storage = new EnergyStorage(100000,32000,0);
 	
 	@Override
 	public boolean canConnectEnergy(ForgeDirection from) {
@@ -251,10 +255,14 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	public int i = 0; 
 	@Override
 	public void updateEntity(){ //Méthode exécutée à chaque tick
+		updateEnergyUsage();
+		updateStorage();
+		updateEnergyEfficiency();
+		energiemultiplier = energiemultiplier - energieEfficiency;
 		matterball = new ItemStack(ae2_materials.materialMatterBall.item());
 		this.itemstack = RecipesMaterializationScanner.smelting().result.get(craft);
 		this.matter = RecipesMaterializationScanner.smelting().matter.get(craft);
-		setWorkingTimeNeeded((Integer) RecipesMaterializationScanner.smelting().time.get(craft)/energieuse);
+		setWorkingTimeNeeded((int) ((RecipesMaterializationScanner.smelting().time.get(craft)/energieuse)*energiemultiplier));
     	switch (i) {
 			case 1://output result
 				this.smeltItem();
@@ -293,7 +301,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
                  this.contenu[1] = null;
               }
 		}
-    	
+    	upgradeSlotUpdate();
     }
 	
 	public void smeltItem(){
@@ -322,4 +330,192 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 		return workingTime;
 	}
 	
+	public void updateEnergyUsage(){
+		switch (speedlv) {
+		case 0:
+			energieuse = 80;
+			energiemultiplier = 1;
+			break;
+		case 1:
+			energieuse = 200;
+			energiemultiplier = 1.5;
+			break;
+		case 2:
+			energieuse = 800;
+			energiemultiplier = 3;
+			break;
+		case 3:
+			energieuse = 8000;
+			energiemultiplier = 8;
+			break;
+		case 4:
+			energieuse = 32000;
+			energiemultiplier = 16;
+			break;
+		default:
+			energieuse = 80;
+			break;
+		}
+	}
+	
+	public void updateEnergyEfficiency(){
+			switch (Efficiencylv) {
+			case 0:
+				energieEfficiency = 0;
+				break;
+			case 1:
+				energieEfficiency = 0.3;
+				break;
+			case 2:
+				energieEfficiency = 1;
+				break;
+			case 3:
+				energieEfficiency = 3;
+				break;
+			case 4:
+				energieEfficiency = 8;
+				break;
+			default:
+				energieEfficiency = 0;
+				break;
+			}
+	}
+	
+	public void updateStorage(){
+		switch (storagelv) {
+		case 0:
+			storage.setCapacity(100000);
+			break;
+		case 1:
+			storage.setCapacity(400000);
+			break;
+		case 2:
+			storage.setCapacity(1600000);
+			break;
+		case 3:
+			storage.setCapacity(12800000);
+			break;
+		case 4:
+			storage.setCapacity(51200000);
+			break;
+		default:
+			storage = new EnergyStorage(100000,32000,0);
+			break;
+		}
+	}
+	
+	public void upgradeSlotUpdate(){
+		if (this.contenu[1] != null && ModItem.basiccore.equals(this.contenu[1].getItem())&& corelv == 0){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	              corelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.hardenedcore.equals(this.contenu[1].getItem())&& corelv == 1){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	              corelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.reinforcedcore.equals(this.contenu[1].getItem())&& corelv == 2){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	              corelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.resonantcore.equals(this.contenu[1].getItem())&& corelv == 3){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	              corelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.basicspeed.equals(this.contenu[1].getItem())&& speedlv == 0 && corelv >= 1){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  speedlv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.hardenedspeed.equals(this.contenu[1].getItem())&& speedlv == 1 && corelv >= 2){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  speedlv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.reinforcedspeed.equals(this.contenu[1].getItem())&& speedlv == 2 && corelv >= 3){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  speedlv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.resonantspeed.equals(this.contenu[1].getItem())&& speedlv == 3 && corelv >= 4){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  speedlv++;
+	              this.contenu[1] = null;
+	     }}	
+		if (this.contenu[1] != null && ModItem.basicstorage.equals(this.contenu[1].getItem())&& storagelv == 0 && corelv >= 1){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  storagelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.hardenedstorage.equals(this.contenu[1].getItem())&& storagelv == 1 && corelv >= 2){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  storagelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.reinforcedstorage.equals(this.contenu[1].getItem())&& storagelv == 2 && corelv >= 3){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  storagelv++;
+	              this.contenu[1] = null;
+	     }}	
+		if (this.contenu[1] != null && ModItem.resonantstorage.equals(this.contenu[1].getItem())&& storagelv == 3 && corelv >= 4){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  storagelv++;
+	              this.contenu[1] = null;
+	     }}	
+		if (this.contenu[1] != null && ModItem.basicefficacite.equals(this.contenu[1].getItem())&& Efficiencylv == 0 && corelv >= 1 && energiemultiplier >= 1){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  Efficiencylv++;
+	              this.contenu[1] = null;
+	     }}	
+		if (this.contenu[1] != null && ModItem.hardenedefficacite.equals(this.contenu[1].getItem())&& Efficiencylv == 1 && corelv >= 2 && energiemultiplier >= 1.2){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  Efficiencylv++;
+	              this.contenu[1] = null;
+	     }}	
+		if (this.contenu[1] != null && ModItem.reinforcedefficacite.equals(this.contenu[1].getItem())&& Efficiencylv == 2 && corelv >= 3 && energiemultiplier >= 3){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  Efficiencylv++;
+	              this.contenu[1] = null;
+	     }}	
+		if (this.contenu[1] != null && ModItem.resonantefficacite.equals(this.contenu[1].getItem())&& Efficiencylv == 3 && corelv >= 4 && energiemultiplier >= 8){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  Efficiencylv++;
+	              this.contenu[1] = null;
+	     }}	
+	}	
 }

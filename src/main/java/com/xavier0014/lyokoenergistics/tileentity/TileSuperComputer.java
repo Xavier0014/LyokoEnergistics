@@ -3,6 +3,8 @@ package com.xavier0014.lyokoenergistics.tileentity;
 import java.util.EnumSet;
 import java.util.Iterator;
 
+import com.xavier0014.lyokoenergistics.init.ModItem;
+
 import appeng.api.AEApi;
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.GridNotification;
@@ -61,6 +63,7 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
 	
 	@Override
     public void updateEntity() {
+		upgradeSlotUpdate();
 		System.out.println(onoff);
         if (!worldObj.isRemote) {
             if (hasMaster()) { 
@@ -291,6 +294,88 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
 	@Override
 	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
 		return true;
+	}
+	
+	public void upgradeSlotUpdate(){
+		if (this.contenu[1] != null && ModItem.basiccore.equals(this.contenu[1].getItem())&& corelv == 0){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	              corelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.hardenedcore.equals(this.contenu[1].getItem())&& corelv == 1){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	              corelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.reinforcedcore.equals(this.contenu[1].getItem())&& corelv == 2){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	              corelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.resonantcore.equals(this.contenu[1].getItem())&& corelv == 3){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	              corelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.basicstorage.equals(this.contenu[1].getItem())&& storagelv == 0 && corelv >= 1){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  storagelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.hardenedstorage.equals(this.contenu[1].getItem())&& storagelv == 1 && corelv >= 2){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  storagelv++;
+	              this.contenu[1] = null;
+	     }}
+		if (this.contenu[1] != null && ModItem.reinforcedstorage.equals(this.contenu[1].getItem())&& storagelv == 2 && corelv >= 3){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  storagelv++;
+	              this.contenu[1] = null;
+	     }}	
+		if (this.contenu[1] != null && ModItem.resonantstorage.equals(this.contenu[1].getItem())&& storagelv == 3 && corelv >= 4){
+	  		  if (this.contenu[1].stackSize <= 0){
+	              this.contenu[1] = null;
+	          }else{
+	        	  storagelv++;
+	              this.contenu[1] = null;
+	     }}	
+	}	
+	
+	public void updateStorage(){
+		switch (storagelv) {
+		case 0:
+			storage.setCapacity(100000);
+			break;
+		case 1:
+			storage.setCapacity(400000);
+			break;
+		case 2:
+			storage.setCapacity(1600000);
+			break;
+		case 3:
+			storage.setCapacity(12800000);
+			break;
+		case 4:
+			storage.setCapacity(51200000);
+			break;
+		default:
+			storage = new EnergyStorage(100000,32000,0);
+			break;
+		}
 	}
 	
 	//----------------------- network -----------------------
