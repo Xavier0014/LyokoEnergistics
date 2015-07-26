@@ -29,7 +29,7 @@ public class ContainerSuperComputer extends Container{
 	             this.addSlotToContainer(new Slot(inventory, k + j * 9 +9, 8 + k * 18 - 1, 103 + j * 18 -11));
 	         }
 	     }
-
+		 
 	     for (int j = 0; j < 9; ++j){
 	         this.addSlotToContainer(new Slot(inventory, j, 8 + j * 18 - 1, 150));
 	     }

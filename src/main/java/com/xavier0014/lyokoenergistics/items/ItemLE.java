@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 public class ItemLE extends Item{
 	
 	private String name;
-	private String unlocalizedname;
+	protected String unlocalizedname;
 	
 	public ItemLE(String name) {
 		super();

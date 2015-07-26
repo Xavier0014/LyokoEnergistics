@@ -44,11 +44,11 @@ public class GuiMaterializationScanner extends GuiContainer{
         this.fontRendererObj.drawString(this.tilems.hasCustomInventoryName() ? this.tilems.getInventoryName() : I18n.format(this.tilems.getInventoryName()), 8 + 55, 28 -26, 4210752);
         this.fontRendererObj.drawString(this.playerInv.hasCustomInventoryName() ? this.playerInv.getInventoryName() : I18n.format(this.playerInv.getInventoryName()), -10, this.ySize - 100, 4210752);
         this.fontRendererObj.drawString("Needed", 70, this.ySize - 165, 4210752);
-        this.fontRendererObj.drawString("energie:", 70, this.ySize - 150, 4210752);
+        this.fontRendererObj.drawString("energy:", 70, this.ySize - 150, 4210752);
         this.fontRendererObj.drawString(String.valueOf(RecipesMaterializationScanner.smelting().time.get(tilems.craft)*tilems.energiemultiplier), 70, this.ySize - 140, 4210752);
         this.fontRendererObj.drawString("Matter:", 70, this.ySize - 125, 4210752);
         this.fontRendererObj.drawString(String.valueOf(tilems.matter), 70, this.ySize - 115, 4210752);
-        this.fontRendererObj.drawString("energie:", -10, this.ySize - 150, 4210752);
+        this.fontRendererObj.drawString("energy:", -10, this.ySize - 150, 4210752);
         this.fontRendererObj.drawString(String.valueOf(tilems.getEnergyStored(null)), -10, this.ySize - 140, 4210752);
         this.fontRendererObj.drawString("Matter:", -10, this.ySize - 125, 4210752);
         this.fontRendererObj.drawString(String.valueOf(tilems.nomberMB), -10, this.ySize - 115, 4210752);

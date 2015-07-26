@@ -64,7 +64,6 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
 	@Override
     public void updateEntity() {
 		upgradeSlotUpdate();
-		System.out.println(onoff);
         if (!worldObj.isRemote) {
             if (hasMaster()) { 
                 if (isMaster()) {

@@ -1,5 +1,8 @@
 package com.xavier0014.lyokoenergistics.init;
 
+import net.minecraft.item.ItemSword;
+import net.minecraft.item.Item.ToolMaterial;
+
 import com.xavier0014.lyokoenergistics.items.*;
 import com.xavier0014.lyokoenergistics.items.record.*;
 import com.xavier0014.lyokoenergistics.reference.Reference;
@@ -10,6 +13,10 @@ public class ModItem {
 	
 	public static final ItemLE matteringot = (ItemLE) new ItemLE("matteringot");
 	public static final ItemLE quantumprocessor = (ItemLE) new ItemLE("quantumprocessor");
+	
+	public static final ItemSword DigitalSabre = (ItemSword) new ItemSword(ToolMaterial.EMERALD);
+	public static final ItemLE digitalsabre = (ItemLE) new DigitalSabre("digitalsabre");
+	public static final ItemLE laserarrows = (LaserArrows) new LaserArrows("laserarrows");
 	
 	public static final ItemLE basiccore = (ItemLE) new ItemLE("basiccore").setMaxStackSize(1);
 	public static final ItemLE hardenedcore = (ItemLE) new ItemLE("hardenedcore").setMaxStackSize(1);
@@ -39,6 +46,9 @@ public class ModItem {
 		GameRegistry.registerItem(matteringot, "matteringot");
 		GameRegistry.registerItem(UnMondeSansDanger, "UnMondeSansDanger");
 		GameRegistry.registerItem(quantumprocessor, "quantumprocessor");
+		
+		GameRegistry.registerItem(digitalsabre, "digitalsabre");
+		GameRegistry.registerItem(laserarrows, "laserarrows");
 		
 		GameRegistry.registerItem(basiccore, "basiccore");
 		GameRegistry.registerItem(hardenedcore, "hardenedcore");
