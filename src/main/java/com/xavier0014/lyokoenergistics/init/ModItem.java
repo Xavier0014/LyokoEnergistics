@@ -16,7 +16,9 @@ public class ModItem {
 	
 	public static final ItemSword DigitalSabre = (ItemSword) new ItemSword(ToolMaterial.EMERALD);
 	public static final ItemLE digitalsabre = (ItemLE) new DigitalSabre("digitalsabre");
-	public static final ItemLE laserarrows = (LaserArrows) new LaserArrows("laserarrows");
+	public static final ItemLE laserarrows = (ItemLE) new LaserArrows("laserarrows");
+	public static final ItemLE energyfields = (ItemLE) new EnergyFields("energyfields");
+	public static final ItemLE fan = (ItemLE) new Fan("fan");
 	
 	public static final ItemLE basiccore = (ItemLE) new ItemLE("basiccore").setMaxStackSize(1);
 	public static final ItemLE hardenedcore = (ItemLE) new ItemLE("hardenedcore").setMaxStackSize(1);
@@ -49,6 +51,8 @@ public class ModItem {
 		
 		GameRegistry.registerItem(digitalsabre, "digitalsabre");
 		GameRegistry.registerItem(laserarrows, "laserarrows");
+		GameRegistry.registerItem(energyfields, "energyfields");
+		GameRegistry.registerItem(fan, "fan");
 		
 		GameRegistry.registerItem(basiccore, "basiccore");
 		GameRegistry.registerItem(hardenedcore, "hardenedcore");

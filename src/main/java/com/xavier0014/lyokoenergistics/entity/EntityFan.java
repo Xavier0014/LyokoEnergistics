@@ -6,22 +6,21 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-public class EntityLaserArrows extends EntityThrowable{
+public class EntityFan  extends EntityThrowable{
 
-	public EntityLaserArrows(World world) {
+	public EntityFan(World world) {
 		super(world);
 	}
 	
-	public EntityLaserArrows(World world, EntityLivingBase entityLivingBase){
+	public EntityFan(World world, EntityLivingBase entityLivingBase){
         super(world, entityLivingBase);
     }
 
 	@Override
 	protected void onImpact(MovingObjectPosition movingObjectPosition) {
 		if (movingObjectPosition.entityHit != null){
-			movingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 5);
+			movingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 10);
 		}
 		this.setDead();
 	}
-
 }

@@ -31,32 +31,35 @@ import cpw.mods.fml.common.FMLCommonHandler;
 public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, IInventory, IGridHost, IGridBlock{
 	
 	private boolean hasMaster, isMaster;
-    private int masterX, masterY, masterZ;
+    public int masterX, masterY, masterZ;
     public boolean onoff;
+    public TileSuperComputer mastertile;
     
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
+        compound.setBoolean("onoff", onoff);
+        compound.setBoolean("hasMaster", hasMaster);
+        compound.setBoolean("isMaster", isMaster);
         compound.setInteger("masterX", masterX);
         compound.setInteger("masterY", masterY);
         compound.setInteger("masterZ", masterZ);
-        compound.setBoolean("hasMaster", hasMaster);
-        compound.setBoolean("isMaster", isMaster);
         if (hasMaster() && isMaster()) {
-        	compound.setBoolean("onoff", onoff);
+        	
         }
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
+        onoff = compound.getBoolean("onoff");
+        hasMaster = compound.getBoolean("hasMaster");
+        isMaster = compound.getBoolean("isMaster");
         masterX = compound.getInteger("masterX");
         masterY = compound.getInteger("masterY");
         masterZ = compound.getInteger("masterZ");
-        hasMaster = compound.getBoolean("hasMaster");
-        isMaster = compound.getBoolean("isMaster");
         if (hasMaster() && isMaster()) {
-        	onoff = compound.getBoolean("onoff");
+        	
         }
     }
 	
@@ -64,6 +67,7 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
 	@Override
     public void updateEntity() {
 		upgradeSlotUpdate();
+		updateValue();
         if (!worldObj.isRemote) {
             if (hasMaster()) { 
                 if (isMaster()) {
@@ -75,6 +79,12 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
             }
         }
     }
+	
+	public void updateValue() {
+		if (mastertile != null &&!hasMaster && !isMaster) {
+			this.onoff = mastertile.onoff;
+		}
+	}
 	
 	
 	//--------------------- energy -------------------------

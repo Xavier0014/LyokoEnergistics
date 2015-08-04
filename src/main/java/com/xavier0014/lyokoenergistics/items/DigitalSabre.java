@@ -30,6 +30,7 @@ public class DigitalSabre extends ItemLE{
 		super(name);
 		Sword = (ItemSword) new ItemSword(ToolMaterial.EMERALD);
 		this.domage = 10F;
+		this.setMaxStackSize(1);
 	}
 	
 	 @SideOnly(Side.CLIENT)

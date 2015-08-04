@@ -38,7 +38,7 @@ public class GuiSuperComputer extends GuiContainer{
 	}
 
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_){
-		if (tilesc.onoff) {
+		if (!tilesc.onoff) {
 			
 		}else{
 			this.fontRendererObj.drawString("_", 30, this.ySize - 178, 16777215);

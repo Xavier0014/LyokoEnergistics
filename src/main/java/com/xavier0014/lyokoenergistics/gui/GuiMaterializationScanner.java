@@ -32,6 +32,7 @@ public class GuiMaterializationScanner extends GuiContainer{
     private int l;
     private int buttonid;
 	public Upgrade upgrade;
+	private int page;
     
 	public GuiMaterializationScanner(TileMaterializationScanner tile, InventoryPlayer inventory) {
 		super(new ContainerMaterializationScanner(tile, inventory));
@@ -66,10 +67,18 @@ public class GuiMaterializationScanner extends GuiContainer{
         int l = (this.height - this.ySize)/2;
         upgrade = new Upgrade(k-42,l,tilems);
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-        buttonList.add(new GuiButton(0, k+174, l+29, 74, 20, "diamond"));//id,x,y,size x,size y, name  
-        buttonList.add(new GuiButton(1, k+174, l+49, 74, 20, "iron"));
-        buttonList.add(new GuiButton(2, k+174, l+69, 74, 20, "gold"));
-        buttonList.add(new GuiButton(3, k+174, l+89, 74, 20, "matter ingot"));
+        if (page == 0) {
+        	 buttonList.add(new GuiButton(0, k+174, l+29, 74, 20, "diamond"));//id,x,y,size x,size y, name  
+             buttonList.add(new GuiButton(1, k+174, l+49, 74, 20, "iron"));
+             buttonList.add(new GuiButton(2, k+174, l+69, 74, 20, "gold"));
+             buttonList.add(new GuiButton(3, k+174, l+89, 74, 20, "matter ingot"));
+             buttonList.add(new GuiButton(4, k+174, l+109, 74, 20, "lapis"));
+             buttonList.add(new GuiButton(5, k+174, l+129, 74, 20, "coal"));
+             buttonList.add(new GuiButton(6, k+174, l+149, 74, 20, "+"));
+		}else if (page == 1) {
+			buttonList.add(new GuiButton(7, k+174, l+29, 74, 20, "-"));
+			 buttonList.add(new GuiButton(8, k+174, l+49, 74, 20, "redstone"));
+		}
         energie = tilems.getEnergyStored(null)*61;
     	energie = energie/tilems.getMaxEnergyStored(null);
     	this.drawTexturedModalRect(k+7, l+31, 19, 182, 17, energie);
@@ -88,9 +97,17 @@ public class GuiMaterializationScanner extends GuiContainer{
 	}
 	@Override
 	public void actionPerformed(GuiButton button){
-		LyokoEnergistics.network.sendToServer(new PacketMaterializationScanner(button.id));
-		tilems.craft = button.id;
 		buttonid = button.id;
+		if (buttonid != 6 && buttonid != 7) {
+			LyokoEnergistics.network.sendToServer(new PacketMaterializationScanner(button.id));
+			tilems.craft = button.id;
+		}
+		if (buttonid == 6) {
+			page++;
+		}
+		if (buttonid == 7) {
+			page--;
+		}
 	}
 
 }

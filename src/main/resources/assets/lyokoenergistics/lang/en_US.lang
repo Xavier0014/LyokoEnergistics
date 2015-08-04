@@ -2,6 +2,8 @@ item.lyokoenergistics:matteringot.name=Matter Ingot
 item.lyokoenergistics:quantumprocessor.name=Quantum Processor
 item.lyokoenergistics:digitalsabre.name=Digital Sabre[WIP]
 item.lyokoenergistics:laserarrows.name=Laser Arrows[WIP]
+item.lyokoenergistics:energyfields.name=Energy Fields[WIP]
+item.lyokoenergistics:fan.name=Fan[WIP]
 
 item.lyokoenergistics:basiccore.name=Basic Upgrade Core
 item.lyokoenergistics:hardenedcore.name=Hardened Upgrade Core

@@ -1,6 +1,10 @@
 package com.xavier0014.lyokoenergistics.proxy;
 
+
+import com.xavier0014.lyokoenergistics.entity.EntityLaserArrows;
+import com.xavier0014.lyokoenergistics.model.ModelLaserArrows;
 import com.xavier0014.lyokoenergistics.model.ModelMaterializationScanner;
+import com.xavier0014.lyokoenergistics.modelRenderer.RenderLaserArrows;
 import com.xavier0014.lyokoenergistics.modelRenderer.RendererMaterializationScanner;
 import com.xavier0014.lyokoenergistics.modelRenderer.TESRInventoryRenderer;
 import com.xavier0014.lyokoenergistics.tileentity.TileMaterializationScanner;
@@ -18,6 +22,7 @@ public class ClientProxy extends CommonProxy{
 		RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileMaterializationScanner.class, new RendererMaterializationScanner());
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityLaserArrows.class, new RenderLaserArrows());
 	}
-
 }

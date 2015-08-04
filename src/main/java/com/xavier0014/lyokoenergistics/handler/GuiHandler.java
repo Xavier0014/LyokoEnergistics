@@ -22,7 +22,8 @@ public class GuiHandler implements IGuiHandler{
 			return new ContainerMaterializationScanner((TileMaterializationScanner)tile, player.inventory);
 		}
 		if(tile instanceof TileSuperComputer){
-			return new ContainerSuperComputer((TileSuperComputer)tile, player.inventory);
+			tile = (TileSuperComputer)tile;
+			return new ContainerSuperComputer((TileSuperComputer)world.getTileEntity(((TileSuperComputer) tile).masterX,((TileSuperComputer) tile).masterY,((TileSuperComputer) tile).masterZ), player.inventory);
 		}
 		return null;
 	}
@@ -34,7 +35,8 @@ public class GuiHandler implements IGuiHandler{
 			return new GuiMaterializationScanner((TileMaterializationScanner)tile, player.inventory);
 		}
 		if(tile instanceof TileSuperComputer){
-			return new GuiSuperComputer((TileSuperComputer)tile, player.inventory);
+			tile = (TileSuperComputer)tile;
+			return new GuiSuperComputer((TileSuperComputer)world.getTileEntity(((TileSuperComputer) tile).masterX,((TileSuperComputer) tile).masterY,((TileSuperComputer) tile).masterZ), player.inventory);
 		}
 		return null;
 	}

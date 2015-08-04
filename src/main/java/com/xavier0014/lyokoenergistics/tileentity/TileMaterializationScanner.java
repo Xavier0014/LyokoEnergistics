@@ -294,12 +294,14 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 		}
     	
     	if (this.contenu[1] != null && matterball.getItem().equals(this.contenu[1].getItem())){
+    		if (this.contenu[1].getItemDamage() == 6) {
     		  if (this.contenu[1].stackSize <= 0){
                   this.contenu[1] = null;
               }else{
                  nomberMB = nomberMB + this.contenu[1].stackSize;
                  this.contenu[1] = null;
               }
+    		}
 		}
     	upgradeSlotUpdate();
     }

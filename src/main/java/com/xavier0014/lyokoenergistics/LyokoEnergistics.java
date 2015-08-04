@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import sun.util.logging.resources.logging;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 
 import com.xavier0014.lyokoenergistics.handler.GuiHandler;
 import com.xavier0014.lyokoenergistics.creativetabs.LECreativeTabs;
@@ -20,6 +21,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 
@@ -45,12 +47,14 @@ public class LyokoEnergistics {
 		network.registerMessage(PacketMaterializationScanner.Handler.class, PacketMaterializationScanner.class, 0, Side.SERVER);
 		network.registerMessage(PacketSuperComputer.Handler.class, PacketSuperComputer.class, 1, Side.SERVER);
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+		ModCraftingRecipe.initCrafting();
 	}
 	
 	@Mod.EventHandler
 	public void Init(FMLInitializationEvent envent){
 		ModTileEntity.tileinit();
 		proxy.registerRender();
+		
 	}
 	
 	@Mod.EventHandler

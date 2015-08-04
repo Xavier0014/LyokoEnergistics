@@ -35,6 +35,10 @@ public class SuperComputer extends BlockLE{
             		return true;
             	}
             }
+            if (tilesc.hasMaster()) {
+            	TileEntity tilemaster = world.getTileEntity(tilesc.masterX,tilesc.masterY , tilesc.masterZ);
+            	tilesc.mastertile = (TileSuperComputer) tilemaster;
+            }
         }
 		return true;
 	}
