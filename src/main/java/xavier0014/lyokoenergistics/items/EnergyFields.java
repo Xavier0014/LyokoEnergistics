@@ -40,7 +40,6 @@ public class EnergyFields extends ItemLE{
 					 j = i;
 				}else {
 					if (i != 0){
-						System.out.println(i);
 				        world.playSoundAtEntity(entity, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 				        world.spawnEntityInWorld(new EntityEnergyFields(world, (EntityPlayer)entity, i));
 				        i = 0;

@@ -14,7 +14,6 @@ public class Energy extends Gui{
 	}
 	
 	public void renderEnergie(int x,int y){
-		System.out.println(energieStore);
 		if (energieStore >= 0 && energieStore <= 20) {
 			this.drawTexturedModalRect(x, (int) (y +(61 -energieStore*3)-1) , 1, 1, 3, (int) energieStore*3);
 		}else {

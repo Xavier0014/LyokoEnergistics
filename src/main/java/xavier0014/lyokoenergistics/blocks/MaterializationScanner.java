@@ -43,7 +43,7 @@ public class MaterializationScanner extends BlockModelLE{
       			GameProfile gameprofile = player.getGameProfile();
   	        	tilems.setPlayerName(gameprofile.getName());
 			}
-			 FMLNetworkHandler.openGui(player, LyokoEnergistics.instance, 0, world, x, y, z);
+			 player.openGui(LyokoEnergistics.instance, 0, world, x, y, z);
 	            return true;
 	        
 		 }

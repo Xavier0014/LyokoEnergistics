@@ -37,7 +37,6 @@ public class LaserArrows extends ItemLE{
 	 
 	 private int i;
 	 public void onUpdate(ItemStack stack, World world, Entity entity, int p_77663_4_, boolean p_77663_5_) {
-		 System.out.println(arrows);
 		 if (arrows == 0) {
 			i++;
 			if (i == 100) {

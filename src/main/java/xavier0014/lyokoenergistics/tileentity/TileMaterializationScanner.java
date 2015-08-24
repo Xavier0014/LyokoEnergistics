@@ -40,9 +40,9 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	
 	public void setCraftList(){
 		for (int i = 0; i < RecipesMaterializationScanner.smelting().result.size(); i++) {
-			craftlist.add(false);
+			craftlist.add(true);
 		}
-		craftlist.add(false);
+		craftlist.add(true);
 	}
 
 
@@ -274,7 +274,6 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 		updateEnergyUsage();
 		updateStorage();
 		updateEnergyEfficiency();
-		System.out.println(this.playerName);
 		storage.setEnergyStored(storage.getEnergyStored()+100);
 		energiemultiplier = energiemultiplier - energieEfficiency;
 		matterball = new ItemStack(ae2_materials.materialMatterBall.item());
