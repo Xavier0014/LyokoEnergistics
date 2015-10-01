@@ -1,6 +1,7 @@
 package xavier0014.lyokoenergistics.tileentity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import xavier0014.lyokoenergistics.blocks.MaterializationScanner;
 import xavier0014.lyokoenergistics.gui.GuiMaterializationScanner;
@@ -8,7 +9,6 @@ import xavier0014.lyokoenergistics.handler.Upgrade;
 import xavier0014.lyokoenergistics.init.ModItem;
 import xavier0014.lyokoenergistics.items.ItemLE;
 import xavier0014.lyokoenergistics.recipes.RecipesMaterializationScanner;
-
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.tileentity.IEnergyInfo;
@@ -36,13 +36,14 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	public int energieuse = 80;
 	public double energiemultiplier = 1;
 	public double energieEfficiency = 0;
-	public ArrayList<Boolean> craftlist = new ArrayList<Boolean>();
+	public static ArrayList<Boolean> craftlist = new ArrayList<Boolean>();
+	public static HashMap<String, ArrayList<Boolean>> knowledge = new HashMap<String, ArrayList<Boolean>>();
 	
-	public void setCraftList(){
+	public static void setCraftList(){
 		for (int i = 0; i < RecipesMaterializationScanner.smelting().result.size(); i++) {
-			craftlist.add(true);
+			craftlist.add(false);
 		}
-		craftlist.add(true);
+		craftlist.set(0, true);
 	}
 
 
@@ -50,8 +51,10 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
     @Override
     public void writeToNBT(NBTTagCompound compound){
     	 super.writeToNBT(compound);
+    	 
+    	 
+    	 
          NBTTagList nbttaglist = new NBTTagList();
-
          for (int i = 0; i < this.contenu.length; ++i){
              if (this.contenu[i] != null){
                  NBTTagCompound nbttagcompound1 = new NBTTagCompound();
@@ -270,11 +273,22 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	public int i = 0; 
 	@Override
 	public void updateEntity(){ //Méthode exécutée à chaque tick
-		setCraftList();
+		if (!TileMaterializationScanner.knowledge.containsKey(playerName)) {
+		 	TileMaterializationScanner.setCraftList();
+		 	ArrayList<Boolean> tempoArray = new ArrayList<Boolean>();
+		 	for (boolean i : TileMaterializationScanner.craftlist) {
+		 		tempoArray.add(false);
+			}
+		 	tempoArray.set(0, true);
+    		TileMaterializationScanner.knowledge.put(playerName,tempoArray);
+		}
 		updateEnergyUsage();
 		updateStorage();
 		updateEnergyEfficiency();
-		storage.setEnergyStored(storage.getEnergyStored()+100);
+		if (!worldObj.isRemote) {
+			storage.setEnergyStored(storage.getEnergyStored()+100);
+		}
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		energiemultiplier = energiemultiplier - energieEfficiency;
 		matterball = new ItemStack(ae2_materials.materialMatterBall.item());
 		this.itemstack = RecipesMaterializationScanner.smelting().result.get(craft);

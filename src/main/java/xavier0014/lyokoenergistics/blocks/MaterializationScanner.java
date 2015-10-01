@@ -1,12 +1,15 @@
 package xavier0014.lyokoenergistics.blocks;
 
+import java.util.ArrayList;
+
 import com.mojang.authlib.GameProfile;
+
+import xavier0014.lyokoenergistics.recipes.RecipesMaterializationScanner;
 import xavier0014.lyokoenergistics.tileentity.TileMaterializationScanner;
 import xavier0014.lyokoenergistics.LyokoEnergistics;
 import xavier0014.lyokoenergistics.proxy.ClientProxy;
 import xavier0014.lyokoenergistics.tileentity.TileEntityLE;
 import xavier0014.lyokoenergistics.tileentity.TileEntityModelLE;
-
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -38,14 +41,13 @@ public class MaterializationScanner extends BlockModelLE{
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz){
 		TileEntity tile = world.getTileEntity(x, y, z);
 		 if (tile != null && tile instanceof TileMaterializationScanner) {
-			 TileEntityLE tilems = (TileEntityLE) tile;
+			 TileMaterializationScanner tilems = (TileMaterializationScanner) tile;
+			 GameProfile gameprofile = player.getGameProfile();
 			 if (tilems.playerName == "") {
-      			GameProfile gameprofile = player.getGameProfile();
   	        	tilems.setPlayerName(gameprofile.getName());
 			}
 			 player.openGui(LyokoEnergistics.instance, 0, world, x, y, z);
 	            return true;
-	        
 		 }
 		 return true;
 	}

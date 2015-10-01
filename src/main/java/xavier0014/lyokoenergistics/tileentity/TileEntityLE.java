@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityLE extends TileEntity{
-	
+
 	public int corelv;
 	public int speedlv = 0;
 	public int storagelv = 0;
@@ -32,5 +32,5 @@ public class TileEntityLE extends TileEntity{
     public void setPlayerName(String playerName){
     	this.playerName = playerName;
     }
-
+    
 }

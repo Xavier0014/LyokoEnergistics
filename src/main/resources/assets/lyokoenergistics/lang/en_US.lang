@@ -1,5 +1,8 @@
 item.lyokoenergistics:matteringot.name=Matter Ingot
 item.lyokoenergistics:quantumprocessor.name=Quantum Processor
+
+item.lyokoenergistics:wireLessConecter.name=Wireless Conecter
+
 item.lyokoenergistics:digitalsabre.name=Digital Sabre[WIP]
 item.lyokoenergistics:laserarrows.name=Laser Arrows[WIP]
 item.lyokoenergistics:energyfields.name=Energy Fields[WIP]
@@ -29,6 +32,8 @@ item.lyokoenergistics:unmondesansdanger.name=Un Monde Sans Danger
 
 tile.lyokoenergistics:supercomputer.name=Supercomputer[WIP]
 tile.lyokoenergistics:materializationscanner.name=Materialization Scanner
+tile.lyokoenergistics:virtualisationScanner.name=Virtualisation Scanner[WIP]
+tile.lyokoenergistics:towerConsol.name=Tower Consol[WIP]
 
 itemGroup.lyokoenergistics_tabs=Lyoko Energistics
 

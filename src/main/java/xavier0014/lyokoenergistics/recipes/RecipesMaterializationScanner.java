@@ -23,10 +23,10 @@ public class RecipesMaterializationScanner {
 	public ArrayList<Integer> matter = new ArrayList<Integer>();
 	
 	public RecipesMaterializationScanner(){
-		this.addRecipe(new ItemStack(Items.diamond),0,1000000,8192);
+		this.addRecipe(new ItemStack(ModItem.matteringot),0,250000,500);
 		this.addRecipe(new ItemStack(Items.iron_ingot),1,50000,256);
 		this.addRecipe(new ItemStack(Items.gold_ingot),2,500000,2048);
-		this.addRecipe(new ItemStack(ModItem.matteringot),3,250000,500);
+		this.addRecipe(new ItemStack(Items.diamond),3,1000000,8192);
 		this.addRecipe(new ItemStack(Items.dye, 1, 4),4,100000,864);
 		this.addRecipe(new ItemStack(Items.coal),5,500000,32);
 		this.addRecipe(null,6,0,0);

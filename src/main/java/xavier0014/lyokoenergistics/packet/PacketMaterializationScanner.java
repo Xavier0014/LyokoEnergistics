@@ -15,7 +15,7 @@ public class PacketMaterializationScanner implements IMessage{
 	private int craft;
 	
 	public PacketMaterializationScanner() {
-		
+		craft = -1;
 	}
 	
 	public PacketMaterializationScanner(int craft) {

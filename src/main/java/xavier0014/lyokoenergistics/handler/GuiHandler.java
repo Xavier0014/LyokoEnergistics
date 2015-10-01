@@ -3,11 +3,13 @@ package xavier0014.lyokoenergistics.handler;
 
 import xavier0014.lyokoenergistics.container.ContainerMaterializationScanner;
 import xavier0014.lyokoenergistics.container.ContainerSuperComputer;
+import xavier0014.lyokoenergistics.container.ContainerTowerConsol;
 import xavier0014.lyokoenergistics.gui.GuiMaterializationScanner;
 import xavier0014.lyokoenergistics.gui.GuiSuperComputer;
+import xavier0014.lyokoenergistics.gui.GuiTowerConsol;
 import xavier0014.lyokoenergistics.tileentity.TileMaterializationScanner;
 import xavier0014.lyokoenergistics.tileentity.TileSuperComputer;
-
+import xavier0014.lyokoenergistics.tileentity.TileTowerConsol;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -26,6 +28,10 @@ public class GuiHandler implements IGuiHandler{
 			tile = (TileSuperComputer)tile;
 			return new ContainerSuperComputer((TileSuperComputer) tile, player.inventory);
 		}
+		if(tile instanceof TileTowerConsol){
+			tile = (TileTowerConsol)tile;
+			return new ContainerTowerConsol((TileTowerConsol) tile, player.inventory);
+		}
 		return null;
 	}
 
@@ -37,6 +43,9 @@ public class GuiHandler implements IGuiHandler{
 		}
 		if(tile instanceof TileSuperComputer){
 			return new GuiSuperComputer((TileSuperComputer) tile, player.inventory);
+		}
+		if(tile instanceof TileTowerConsol){
+			return new GuiTowerConsol((TileTowerConsol) tile, player.inventory);
 		}
 		return null;
 	}

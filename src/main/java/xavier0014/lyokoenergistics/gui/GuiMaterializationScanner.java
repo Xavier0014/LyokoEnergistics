@@ -1,5 +1,7 @@
 package xavier0014.lyokoenergistics.gui;
 
+import java.util.ArrayList;
+
 import org.lwjgl.opengl.GL11;
 
 import xavier0014.lyokoenergistics.LyokoEnergistics;
@@ -9,7 +11,6 @@ import xavier0014.lyokoenergistics.packet.PacketMaterializationScanner;
 import xavier0014.lyokoenergistics.recipes.RecipesMaterializationScanner;
 import xavier0014.lyokoenergistics.reference.Reference;
 import xavier0014.lyokoenergistics.tileentity.TileMaterializationScanner;
-
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -72,25 +73,29 @@ public class GuiMaterializationScanner extends GuiContainer{
         energy = new Energy(tilems.getEnergyStored(null),tilems.getMaxEnergyStored(null));
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
         if (page == 0) {
-        	 buttonList.add(new GuiButton(0, k+174, l+29, 74, 20, "diamond"));//id,x,y,size x,size y, name  
+        	 buttonList.add(new GuiButton(0, k+174, l+29, 74, 20, "matter ingot"));//id,x,y,size x,size y, name  
              buttonList.add(new GuiButton(1, k+174, l+49, 74, 20, "iron"));
              buttonList.add(new GuiButton(2, k+174, l+69, 74, 20, "gold"));
-             buttonList.add(new GuiButton(3, k+174, l+89, 74, 20, "matter ingot"));
+             buttonList.add(new GuiButton(3, k+174, l+89, 74, 20, "diamond"));
              buttonList.add(new GuiButton(4, k+174, l+109, 74, 20, "lapis"));
              buttonList.add(new GuiButton(5, k+174, l+129, 74, 20, "coal"));
              buttonList.add(new GuiButton(6, k+174, l+149, 74, 20, "+"));
              for (int i = 0; i < 6; i++) {
+		       	 System.out.println(tilems.playerName);
+		       	 System.out.println(TileMaterializationScanner.knowledge.get(tilems.playerName));
+		       	 System.out.println(i);
             	 GuiButton buton = (GuiButton) buttonList.get(i);
-            	 buton.enabled = tilems.craftlist.get(i);
+		       	 buton.enabled = TileMaterializationScanner.knowledge.get(tilems.playerName).get(i);
+		       			 
 			}
 		}else if (page == 1) {
 			 buttonList.add(new GuiButton(7, k+174, l+29, 74, 20, "-"));
 			 buttonList.add(new GuiButton(8, k+174, l+49, 74, 20, "redstone"));
 			 buttonList.add(new GuiButton(9, k+174, l+69, 74, 20, "quartz"));
-		}
-        for (int i = 1; i < 3; i++) {
-       	 GuiButton buton = (GuiButton) buttonList.get(i);
-       	 buton.enabled = tilems.craftlist.get(i);
+			  for (int i = 1; i < 3; i++) {
+				  GuiButton buton = (GuiButton) buttonList.get(i);
+	              buton.enabled = TileMaterializationScanner.knowledge.get(tilems.playerName).get(i);
+			 }
 		}
         if (this.tilems.isProcessing()){
            progress = tilems.getWorkingTime()*24;
