@@ -30,15 +30,14 @@ public class TileTowerConsol extends TileEntityLE {
 				if (isValidNumber(randomInt)) {
 					isProsesing = true;
 					time1 = System.nanoTime();
-					System.out.println(randomInt);
 				}
 			}
 		}else {
 			progresse = (int) (((System.nanoTime()-time1)*100)/25000000000L);
-			System.out.println(System.nanoTime()-time1);
+			//System.out.println(System.nanoTime()-time1);
 			if ((System.nanoTime()-time1) >= 25000000000L) {
 				if (worldObj.isRemote) {
-					System.out.println(result.get(randomInt));
+					//System.out.println(result.get(randomInt));
 					InvalidNumber.add(randomInt);
 					if (TileMaterializationScanner.knowledge.containsKey(playerName)) {
 						TileMaterializationScanner.knowledge.get(playerName).set(randomInt,true);

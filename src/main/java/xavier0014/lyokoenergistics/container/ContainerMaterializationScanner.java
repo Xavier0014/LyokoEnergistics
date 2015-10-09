@@ -16,8 +16,8 @@ public class ContainerMaterializationScanner extends Container{
 		this.tilems = tile;
 		tile.openInventory();
 		
-	     this.addSlotToContainer(new Slot(tile, 1 , 41, 0));
-	     this.addSlotToContainer(new SlotResult(tile, 0 , 41, 47));
+	     this.addSlotToContainer(new Slot(tile, 0 , 41, 0));
+	     this.addSlotToContainer(new SlotResult(tile, 1 , 41, 47));
 	     
 	     
 		 this.bindPlayerInventory(inventory);

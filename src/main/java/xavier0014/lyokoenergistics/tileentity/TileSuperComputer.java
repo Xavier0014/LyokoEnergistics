@@ -399,76 +399,74 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
 	
 	@Override
 	public double getIdlePowerUsage() {
-		System.out.println("1");
+		//System.out.println("1");
 		return 3.0D;
 	}
 
 	@Override
 	public EnumSet<GridFlags> getFlags() {
-		System.out.println("2");
+		//System.out.println("2");
 		return EnumSet.of(GridFlags.REQUIRE_CHANNEL);
 	}
 
 	@Override
 	public boolean isWorldAccessible() {
-		System.out.println("3");
+		//System.out.println("3");
 		return true;
 	}
 
 	@Override
 	public DimensionalCoord getLocation() {
-		System.out.println("4");
+		//System.out.println("4");
 		return new DimensionalCoord(this);
 	}
 
 	@Override
 	public AEColor getGridColor() {
-		System.out.println("5");
+		//System.out.println("5");
 		return AEColor.Transparent;
 	}
 
 	@Override
 	public void onGridNotification(GridNotification notification) {
-		System.out.println("6");
+		//System.out.println("6");
 		
 		
 	}
 
 	@Override
 	public void setNetworkStatus(IGrid grid, int channelsInUse) {
-		System.out.println("7");
+		//System.out.println("7");
 		
 	}
 
 	@Override
 	public EnumSet<ForgeDirection> getConnectableSides() {
-		System.out.println("8");
+		//System.out.println("8");
 		return EnumSet.of(ForgeDirection.DOWN, ForgeDirection.UP, ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST);
 	}
 
 	@Override
 	public IGridHost getMachine() {
-		System.out.println("9");
+		//System.out.println("9");
 		return this;
 	}
 
 	@Override
 	public void gridChanged() {
-		System.out.println("10");
-		// TODO Auto-generated method stub
+		//System.out.println("10");
 		
 	}
 
 	@Override
 	public ItemStack getMachineRepresentation() {
-		System.out.println("11");
-		// TODO Auto-generated method stub
+		//System.out.println("11");
 		return new ItemStack(this.getWorldObj().getBlock(xCoord, yCoord, zCoord),this.getBlockMetadata());
 	}
 
 	@Override
 	public IGridNode getGridNode(ForgeDirection dir) {
-		System.out.println("12");
+		//System.out.println("12");
 		if(this.worldObj.isRemote)
 			return null;
 		if(node == null){
@@ -480,12 +478,12 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
 
 	@Override
 	public AECableType getCableConnectionType(ForgeDirection dir) {
-		System.out.println("13");
+		//System.out.println("13");
 		return AECableType.SMART;
 	}
 
 	@Override
 	public void securityBreak() {
-		System.out.println("14");
+		//System.out.println("14");
 	}
 }

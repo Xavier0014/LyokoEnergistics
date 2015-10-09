@@ -30,7 +30,7 @@ public class GuiTowerConsol extends GuiContainer{
 	
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_){
 		if (tiletc.menu == 5) {
-			this.fontRendererObj.drawString("prosese "+ tiletc.progresse +"%", 30, this.ySize - 178, 16777215);
+			this.fontRendererObj.drawString("processing "+ tiletc.progresse +"%", 30, this.ySize - 178, 16777215);
 		}if (tiletc.menu == 6) {
 			this.fontRendererObj.drawString(tiletc.result.get(tiletc.randomInt).getDisplayName(), 30, this.ySize - 178, 16777215);
 		}

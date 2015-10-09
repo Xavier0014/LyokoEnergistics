@@ -81,9 +81,6 @@ public class GuiMaterializationScanner extends GuiContainer{
              buttonList.add(new GuiButton(5, k+174, l+129, 74, 20, "coal"));
              buttonList.add(new GuiButton(6, k+174, l+149, 74, 20, "+"));
              for (int i = 0; i < 6; i++) {
-		       	 System.out.println(tilems.playerName);
-		       	 System.out.println(TileMaterializationScanner.knowledge.get(tilems.playerName));
-		       	 System.out.println(i);
             	 GuiButton buton = (GuiButton) buttonList.get(i);
 		       	 buton.enabled = TileMaterializationScanner.knowledge.get(tilems.playerName).get(i);
 		       			 
@@ -92,7 +89,7 @@ public class GuiMaterializationScanner extends GuiContainer{
 			 buttonList.add(new GuiButton(7, k+174, l+29, 74, 20, "-"));
 			 buttonList.add(new GuiButton(8, k+174, l+49, 74, 20, "redstone"));
 			 buttonList.add(new GuiButton(9, k+174, l+69, 74, 20, "quartz"));
-			  for (int i = 1; i < 3; i++) {
+			  for (int i = 0; i < 3; i++) {
 				  GuiButton buton = (GuiButton) buttonList.get(i);
 	              buton.enabled = TileMaterializationScanner.knowledge.get(tilems.playerName).get(i);
 			 }

@@ -33,7 +33,7 @@ item.lyokoenergistics:unmondesansdanger.name=Un Monde Sans Danger
 tile.lyokoenergistics:supercomputer.name=Supercomputer[WIP]
 tile.lyokoenergistics:materializationscanner.name=Materialization Scanner
 tile.lyokoenergistics:virtualisationScanner.name=Virtualisation Scanner[WIP]
-tile.lyokoenergistics:towerConsol.name=Tower Consol[WIP]
+tile.lyokoenergistics:towerConsol.name=Research Console[WIP]
 
 itemGroup.lyokoenergistics_tabs=Lyoko Energistics
 

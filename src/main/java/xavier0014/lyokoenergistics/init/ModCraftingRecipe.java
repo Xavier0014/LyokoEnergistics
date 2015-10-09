@@ -15,6 +15,7 @@ public class ModCraftingRecipe {
 	static ItemStack diament = new ItemStack(Items.diamond);
 	
 	public static void initCrafting(){
+		//quantum processor
 		GameRegistry.addRecipe(new ItemStack(ModItem.quantumprocessor), "xyx","yzy","xyx",'x',diament ,'y',fluix,'z',Processor);
 	}
 }

@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 
 
-public class VirtualisationScanner extends BlockModelLE{
+public class VirtualisationScanner extends BlockLE{
 
 	public VirtualisationScanner(String name) {
 		super(name);
@@ -24,7 +24,6 @@ public class VirtualisationScanner extends BlockModelLE{
 	
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase living, ItemStack stack){
 		if (!checkSpace(world,x,y,z)) {
-			System.out.println("salut");
 			world.setBlockToAir(x, y, z);
 			stack.stackSize++;
 		}else {
