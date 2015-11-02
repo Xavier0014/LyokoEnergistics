@@ -204,7 +204,6 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	
 	@Override
 	public void openInventory() { 
-		storage.setEnergyStored(storage.getEnergyStored()+1000);
 	}
 
 	@Override
@@ -288,9 +287,9 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 		updateEnergyUsage();
 		updateStorage();
 		updateEnergyEfficiency();
-		if (!worldObj.isRemote) {
-			storage.setEnergyStored(storage.getEnergyStored()+100);
-		}
+		//if (!worldObj.isRemote) {
+		//	storage.setEnergyStored(storage.getEnergyStored()+100);
+		//}
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		energiemultiplier = energiemultiplier - energieEfficiency;
 		matterball = new ItemStack(ae2_materials.materialMatterBall.item());
@@ -327,7 +326,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 			break;
 		}
     	
-    	if (this.contenu[0] != null && matterball.getItem().equals(this.contenu[0].getItem()) && nomberMB <= 20000){
+    	if (this.contenu[0] != null && matterball.getItem().equals(this.contenu[0].getItem()) && nomberMB <= 40000){
     		if (this.contenu[0].getItemDamage() == 6) {
     		  if (this.contenu[0].stackSize <= 0){
                   this.contenu[0] = null;
@@ -340,7 +339,9 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
     	upgradeSlotUpdate();
     }
 	
-	public void SavePlayerData() {} 
+	public void SavePlayerData() {
+		
+	} 
 	
 	public void smeltItem(){
         if (this.canSmelt()){

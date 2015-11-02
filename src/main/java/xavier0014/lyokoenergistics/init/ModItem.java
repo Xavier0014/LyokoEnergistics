@@ -42,6 +42,7 @@ public class ModItem {
 	
 	public static final RecordLE UnMondeSansDanger = new RecordLE("unmondesansdanger","Code Lyoko - Un monde sans danger");
 	
+	
 	public static void init(){
 		
 		GameRegistry.registerItem(matteringot, "matteringot");

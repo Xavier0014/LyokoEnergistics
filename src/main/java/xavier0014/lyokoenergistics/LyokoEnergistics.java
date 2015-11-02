@@ -47,12 +47,12 @@ public class LyokoEnergistics {
 		network.registerMessage(PacketSuperComputer.Handler.class, PacketSuperComputer.class, 1, Side.SERVER);
 		network.registerMessage(PacketTowerConsol.Handler.class, PacketTowerConsol.class, 2, Side.SERVER);
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-		ModCraftingRecipe.initCrafting();
 	}
 	
 	@Mod.EventHandler
 	public void Init(FMLInitializationEvent envent){
 		ModTileEntity.tileinit();
+		ModCraftingRecipe.initCrafting();
 		proxy.registerRender();
 		
 	}
