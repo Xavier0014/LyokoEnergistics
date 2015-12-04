@@ -39,7 +39,7 @@ public class RecipesMaterializationScanner {
 		this.addRecipe(new ItemStack(Items.quartz),9,250000,256);
 		this.addRecipe(new ItemStack(ae2_materials.materialCertusQuartzCrystal.item()),10,400000,256);
 		this.addRecipe(new ItemStack(Items.emerald),11,1500000,16384);
-		if (Loader.isModLoaded("ThermalFoundation")) {
+		if (Loader.isModLoaded("ThermalFoundation")&&!Loader.isModLoaded("gregtech")) {
 			this.addRecipe(new ItemStack(GameRegistry.findItem("ThermalFoundation", "material"),1,64),12,150000,85);
 			this.addRecipe(new ItemStack(GameRegistry.findItem("ThermalFoundation", "material"),1,65),13,350000,256);
 			this.addRecipe(new ItemStack(GameRegistry.findItem("ThermalFoundation", "material"),1,66),14,475000,1024);

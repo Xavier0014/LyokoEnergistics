@@ -1,8 +1,12 @@
 package xavier0014.lyokoenergistics.tileentity;
 
+import ibxm.Player;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import com.mojang.authlib.GameProfile;
 
 import scala.reflect.internal.Trees.If;
 import xavier0014.lyokoenergistics.blocks.MaterializationScanner;
@@ -14,9 +18,12 @@ import xavier0014.lyokoenergistics.recipes.RecipesMaterializationScanner;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.tileentity.IEnergyInfo;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -54,9 +61,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
     @Override
     public void writeToNBT(NBTTagCompound compound){
     	 super.writeToNBT(compound);
-    	 
-    	 
-    	 
+    	 savePlayerData(compound);
          NBTTagList nbttaglist = new NBTTagList();
          for (int i = 0; i < this.contenu.length; ++i){
              if (this.contenu[i] != null){
@@ -86,6 +91,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
     @Override
     public void readFromNBT(NBTTagCompound compound){
 	 super.readFromNBT(compound);
+	 readPlayerData(compound);
         if (compound.hasKey("CustomName", 8)){
             this.customName = compound.getString("CustomName");
         }
@@ -108,6 +114,34 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
         this.matter = compound.getShort("matter");
         storage.readFromNBT(compound);
     }
+    
+    public void savePlayerData(NBTTagCompound compound) {
+		int k = 0;
+		for (String i : knowledge.keySet()) {
+		    ArrayList<Boolean> playerKnow = knowledge.get(i);
+		    for (int j = 0; j < playerKnow.size(); j++) {
+		    	compound.setBoolean("knowledge"+i+j, playerKnow.get(j));
+			}
+		    compound.setString("pName"+k, i);
+		    k++;
+		    compound.setInteger("playerKownSize", playerKnow.size());
+		}
+		compound.setInteger("kownSize", knowledge.size());
+	} 
+	
+	public void readPlayerData(NBTTagCompound compound) {
+		ArrayList<String> playerList = new ArrayList<String>(); 
+		for (int i = 0; i < compound.getInteger("kownSize"); i++) {
+			playerList.add(compound.getString("pName"+i));
+		}
+		for (int i = 0; i < playerList.size(); i++) {
+			ArrayList<Boolean> l = new ArrayList<Boolean>();
+			for (int j = 0; j < compound.getInteger("playerKownSize")+1; j++) {
+				l.add(compound.getBoolean("knowledge"+playerList.get(i)+j));
+				knowledge.put(playerList.get(i), l);
+			}
+		}
+	}
     
     //-----------------------------------------------------------------------------
     
@@ -294,7 +328,11 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 		energiemultiplier = energiemultiplier - energieEfficiency;
 		matterball = new ItemStack(ae2_materials.materialMatterBall.item());
 		this.itemstack = RecipesMaterializationScanner.smelting().result.get(craft);
-		this.matter = RecipesMaterializationScanner.smelting().matter.get(craft);
+		if (Loader.isModLoaded("ExtraUtilities")) {
+			this.matter = RecipesMaterializationScanner.smelting().matter.get(craft);
+		}else {
+			this.matter = (int) RecipesMaterializationScanner.smelting().matter.get(craft)/4;
+		}
 		setWorkingTimeNeeded((int) ((RecipesMaterializationScanner.smelting().time.get(craft)/energieuse)*energiemultiplier));
     	switch (i) {
 			case 1://output result
@@ -339,10 +377,6 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
     	upgradeSlotUpdate();
     }
 	
-	public void SavePlayerData() {
-		
-	} 
-	
 	public void smeltItem(){
         if (this.canSmelt()){
              if (this.contenu[1] == null) {
@@ -355,7 +389,6 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
         }
     }
 	
-
 	
 	public void setWorkingTimeNeeded(int time){
 		this.workingTimeNeeded = time;
@@ -443,118 +476,35 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 		}
 	}
 	
+	public int BasiqueInputInt(ItemStack[] contenuL,int slot,int upgrade,Item item,boolean condition) {
+		if (contenuL[slot]!= null && item.equals(contenuL[slot].getItem()) &&condition){
+	  		  if (contenuL[slot] != null && contenuL[slot].stackSize <= 0){
+	  			  contenuL[slot] = null;
+	          }else{
+	        	  upgrade++;
+	              contenuL[slot] = null;
+	     }}
+		return upgrade;
+	}
+	
 	public void upgradeSlotUpdate(){
-		if (this.contenu[0] != null && ModItem.basiccore.equals(this.contenu[0].getItem())&& corelv == 0){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	              corelv++;
-	              this.contenu[0] = null;
-	     }}
-		if (this.contenu[0] != null && ModItem.hardenedcore.equals(this.contenu[0].getItem())&& corelv == 1){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	              corelv++;
-	              this.contenu[0] = null;
-	     }}
-		if (this.contenu[0] != null && ModItem.reinforcedcore.equals(this.contenu[0].getItem())&& corelv == 2){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	              corelv++;
-	              this.contenu[0] = null;
-	     }}
-		if (this.contenu[0] != null && ModItem.resonantcore.equals(this.contenu[0].getItem())&& corelv == 3){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	              corelv++;
-	              this.contenu[0] = null;
-	     }}
-		if (this.contenu[0] != null && ModItem.basicspeed.equals(this.contenu[0].getItem())&& speedlv == 0 && corelv >= 1){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  speedlv++;
-	              this.contenu[0] = null;
-	     }}
-		if (this.contenu[0] != null && ModItem.hardenedspeed.equals(this.contenu[0].getItem())&& speedlv == 1 && corelv >= 2){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  speedlv++;
-	              this.contenu[0] = null;
-	     }}
-		if (this.contenu[0] != null && ModItem.reinforcedspeed.equals(this.contenu[0].getItem())&& speedlv == 2 && corelv >= 3){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  speedlv++;
-	              this.contenu[0] = null;
-	     }}
-		if (this.contenu[0] != null && ModItem.resonantspeed.equals(this.contenu[0].getItem())&& speedlv == 3 && corelv >= 4){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  speedlv++;
-	              this.contenu[0] = null;
-	     }}	
-		if (this.contenu[0] != null && ModItem.basicstorage.equals(this.contenu[0].getItem())&& storagelv == 0 && corelv >= 1){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  storagelv++;
-	              this.contenu[0] = null;
-	     }}
-		if (this.contenu[0] != null && ModItem.hardenedstorage.equals(this.contenu[0].getItem())&& storagelv == 1 && corelv >= 2){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  storagelv++;
-	              this.contenu[0] = null;
-	     }}
-		if (this.contenu[0] != null && ModItem.reinforcedstorage.equals(this.contenu[0].getItem())&& storagelv == 2 && corelv >= 3){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  storagelv++;
-	              this.contenu[0] = null;
-	     }}	
-		if (this.contenu[0] != null && ModItem.resonantstorage.equals(this.contenu[0].getItem())&& storagelv == 3 && corelv >= 4){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  storagelv++;
-	              this.contenu[0] = null;
-	     }}	
-		if (this.contenu[0] != null && ModItem.basicefficacite.equals(this.contenu[0].getItem())&& Efficiencylv == 0 && corelv >= 1 && energiemultiplier >= 1){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  Efficiencylv++;
-	              this.contenu[0] = null;
-	     }}	
-		if (this.contenu[0] != null && ModItem.hardenedefficacite.equals(this.contenu[0].getItem())&& Efficiencylv == 1 && corelv >= 2 && energiemultiplier >= 1.2){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  Efficiencylv++;
-	              this.contenu[0] = null;
-	     }}	
-		if (this.contenu[0] != null && ModItem.reinforcedefficacite.equals(this.contenu[0].getItem())&& Efficiencylv == 2 && corelv >= 3 && energiemultiplier >= 3){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  Efficiencylv++;
-	              this.contenu[0] = null;
-	     }}	
-		if (this.contenu[0] != null && ModItem.resonantefficacite.equals(this.contenu[0].getItem())&& Efficiencylv == 3 && corelv >= 4 && energiemultiplier >= 8){
-	  		  if (this.contenu[0].stackSize <= 0){
-	              this.contenu[0] = null;
-	          }else{
-	        	  Efficiencylv++;
-	              this.contenu[0] = null;
-	     }}	
+		if (contenu[0] != null) {
+			corelv = BasiqueInputInt(this.contenu, 0, corelv,ModItem.basiccore, corelv == 0);
+			corelv = BasiqueInputInt(this.contenu, 0, corelv,ModItem.hardenedcore, corelv == 1);
+			corelv = BasiqueInputInt(this.contenu, 0, corelv, ModItem.reinforcedcore, corelv == 2);
+			corelv = BasiqueInputInt(this.contenu, 0, corelv, ModItem.resonantcore, corelv == 3);
+			speedlv = BasiqueInputInt(this.contenu, 0, speedlv, ModItem.basicspeed, speedlv == 0 && corelv >= 1);
+			speedlv = BasiqueInputInt(this.contenu, 0, speedlv, ModItem.hardenedspeed, speedlv == 1 && corelv >= 2);
+			speedlv = BasiqueInputInt(this.contenu, 0, speedlv, ModItem.reinforcedspeed, speedlv == 2 && corelv >= 3);
+			speedlv = BasiqueInputInt(this.contenu, 0, speedlv, ModItem.resonantspeed, speedlv == 3 && corelv >= 4);
+			storagelv = BasiqueInputInt(this.contenu, 0, storagelv, ModItem.basicstorage, storagelv == 0 && corelv >= 1);
+			storagelv = BasiqueInputInt(this.contenu, 0, storagelv, ModItem.hardenedstorage, storagelv == 1 && corelv >= 2);
+			storagelv = BasiqueInputInt(this.contenu, 0, storagelv, ModItem.reinforcedstorage, storagelv == 2 && corelv >= 3);
+			storagelv = BasiqueInputInt(this.contenu, 0, storagelv, ModItem.resonantstorage, storagelv == 3 && corelv >= 4);
+			Efficiencylv = BasiqueInputInt(this.contenu, 0, Efficiencylv, ModItem.basicefficacite, Efficiencylv == 0 && corelv >= 1 && energiemultiplier >= 1);
+			Efficiencylv = BasiqueInputInt(this.contenu, 0, Efficiencylv, ModItem.hardenedefficacite, Efficiencylv == 1 && corelv >= 2 && energiemultiplier >= 1.2);
+			Efficiencylv = BasiqueInputInt(this.contenu, 0, Efficiencylv, ModItem.reinforcedefficacite, Efficiencylv == 2 && corelv >= 3 && energiemultiplier >= 3);
+			Efficiencylv = BasiqueInputInt(this.contenu, 0, Efficiencylv, ModItem.resonantefficacite, Efficiencylv == 3 && corelv >= 4 && energiemultiplier >= 8);
+		}
 	}	
 }

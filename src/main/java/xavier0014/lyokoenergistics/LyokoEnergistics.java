@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import sun.util.logging.resources.logging;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import xavier0014.lyokoenergistics.handler.GuiHandler;
+import xavier0014.lyokoenergistics.handler.TextureEvent;
 import xavier0014.lyokoenergistics.creativetabs.LECreativeTabs;
 import xavier0014.lyokoenergistics.init.*;
-import xavier0014.lyokoenergistics.packet.PacketMaterializationScanner;
-import xavier0014.lyokoenergistics.packet.PacketSuperComputer;
-import xavier0014.lyokoenergistics.packet.PacketTowerConsol;
+import xavier0014.lyokoenergistics.packet.*;
 import xavier0014.lyokoenergistics.proxy.IProxy;
 import xavier0014.lyokoenergistics.reference.Reference;
 import cpw.mods.fml.common.Mod;
@@ -40,8 +40,11 @@ public class LyokoEnergistics {
 	
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent envent){
+		ModFluid.initFluid();
 		ModItem.init();
 		ModBlock.init();
+		ModBlock.initFluid();
+		MinecraftForge.EVENT_BUS.register(new TextureEvent());
 		network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
 		network.registerMessage(PacketMaterializationScanner.Handler.class, PacketMaterializationScanner.class, 0, Side.SERVER);
 		network.registerMessage(PacketSuperComputer.Handler.class, PacketSuperComputer.class, 1, Side.SERVER);
@@ -61,5 +64,4 @@ public class LyokoEnergistics {
 	public void postInit(FMLPostInitializationEvent envent){
 		
 	}
-
 }

@@ -34,6 +34,10 @@ tile.lyokoenergistics:supercomputer.name=Supercomputer[WIP]
 tile.lyokoenergistics:materializationscanner.name=Materialization Scanner
 tile.lyokoenergistics:virtualisationScanner.name=Virtualisation Scanner[WIP]
 tile.lyokoenergistics:towerConsol.name=Research Console
+tile.lyokoenergistics:lyokoGrass.name=Lyoko Grass
+tile.lyokoenergistics:lyokoTree.name=Lyoko Tree
+
+tile.lyokoenergistics:digitalSea.name=Digital Sea
 
 itemGroup.lyokoenergistics_tabs=Lyoko Energistics
 
