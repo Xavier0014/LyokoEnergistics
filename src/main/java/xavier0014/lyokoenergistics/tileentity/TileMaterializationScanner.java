@@ -49,15 +49,6 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	public static ArrayList<Boolean> craftlist = new ArrayList<Boolean>();
 	public static HashMap<String, ArrayList<Boolean>> knowledge = new HashMap<String, ArrayList<Boolean>>();
 	
-	public static void setCraftList(){
-		for (int i = 0; i < RecipesMaterializationScanner.smelting().result.size(); i++) {
-			craftlist.add(false);
-		}
-		craftlist.set(0, true);
-	}
-
-
-	
     @Override
     public void writeToNBT(NBTTagCompound compound){
     	 super.writeToNBT(compound);
@@ -116,30 +107,34 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
     }
     
     public void savePlayerData(NBTTagCompound compound) {
-		int k = 0;
-		for (String i : knowledge.keySet()) {
-		    ArrayList<Boolean> playerKnow = knowledge.get(i);
-		    for (int j = 0; j < playerKnow.size(); j++) {
-		    	compound.setBoolean("knowledge"+i+j, playerKnow.get(j));
-			}
-		    compound.setString("pName"+k, i);
-		    k++;
-		    compound.setInteger("playerKownSize", playerKnow.size());
+    	try {
+    		int k = 0;
+    		for (String i : knowledge.keySet()) {
+    		    ArrayList<Boolean> playerKnow = knowledge.get(i);
+    		    for (int j = 0; j < playerKnow.size(); j++) {
+    		    	compound.setBoolean("knowledge"+i+j, playerKnow.get(j));
+    			}
+    		    compound.setString("pName"+k, i);
+    		    k++;
+    		    compound.setInteger("playerKownSize", playerKnow.size());
+    		}
+    		compound.setInteger("kownSize", knowledge.size());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		compound.setInteger("kownSize", knowledge.size());
 	} 
 	
 	public void readPlayerData(NBTTagCompound compound) {
 		ArrayList<String> playerList = new ArrayList<String>(); 
-		for (int i = 0; i < compound.getInteger("kownSize"); i++) {
-			playerList.add(compound.getString("pName"+i));
+		for (int k = 0; k < compound.getInteger("kownSize"); k++) {
+			playerList.add(compound.getString("pName"+k));
 		}
-		for (int i = 0; i < playerList.size(); i++) {
+		for (String i : playerList) {
 			ArrayList<Boolean> l = new ArrayList<Boolean>();
-			for (int j = 0; j < compound.getInteger("playerKownSize")+1; j++) {
-				l.add(compound.getBoolean("knowledge"+playerList.get(i)+j));
-				knowledge.put(playerList.get(i), l);
+			for (int j = 0; j < compound.getInteger("playerKownSize"); j++) {
+				l.add(compound.getBoolean("knowledge"+i+j));
 			}
+			knowledge.put(i, l);
 		}
 	}
     
@@ -310,9 +305,8 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	@Override
 	public void updateEntity(){ //Méthode exécutée à chaque tick
 		if (!TileMaterializationScanner.knowledge.containsKey(playerName)) {
-		 	TileMaterializationScanner.setCraftList();
 		 	ArrayList<Boolean> tempoArray = new ArrayList<Boolean>();
-		 	for (boolean i : TileMaterializationScanner.craftlist) {
+		 	for (int i = 0; i < RecipesMaterializationScanner.smelting().result.size(); i++) {
 		 		tempoArray.add(false);
 			}
 		 	tempoArray.set(0, true);

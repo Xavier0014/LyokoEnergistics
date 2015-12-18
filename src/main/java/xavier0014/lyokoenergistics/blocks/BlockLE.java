@@ -25,7 +25,17 @@ public class BlockLE extends Block{
 		this.name = name;
 		setBlockName(Reference.MOD_id +":"+name);
 		this.setCreativeTab(LyokoEnergistics.lyokotab);
-		super.setHardness(4.0F);
+		this.setHardness(4.0F);
+		this.setResistance(10.0F);
+	}
+	
+	public BlockLE(String name,Material material) {
+		super(material);
+		this.name = name;
+		setBlockName(Reference.MOD_id +":"+name);
+		this.setCreativeTab(LyokoEnergistics.lyokotab);
+		this.setHardness(4.0F);
+		this.setResistance(10.0F);
 	}
 	
 	@Override

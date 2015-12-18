@@ -11,10 +11,10 @@ public class ModBlock {
 	public static final BlockLE materializationscanner = new MaterializationScanner("materializationscanner");
 	public static final BlockLE virtualisationScanner = new VirtualisationScanner("virtualisationScanner");
 	public static final BlockLE towerConsol = new TowerConsol("towerConsol");
-	public static final BlockLE lyokoGrass = new BlockLE("lyokoGrass");
-	public static final BlockLE lyokoTree = new BlockLE("lyokoTree");
+	public static final BlockLE lyokoGrass = (BlockLE) new BlockLE("lyokoGrass", Material.grass).setBlockUnbreakable().setResistance(6000000.0F);
+	public static final BlockLE lyokoTree = (BlockLE) new BlockLE("lyokoTree", Material.wood).setBlockUnbreakable().setResistance(6000000.0F);
 	
-	public static Block digitalSea = new BlockDigitalSea(ModFluid.DigitalSea, Material.water,"digitalSea");
+	public static Block digitalSea = new BlockDigitalSea(ModFluid.DigitalSea, Material.water,"digitalSea").setResistance(6000000.0F);
 	
 	public static void init(){
 		GameRegistry.registerBlock(supercomputer, "supercomputer");
