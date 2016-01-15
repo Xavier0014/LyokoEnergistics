@@ -13,6 +13,7 @@ public class ModBlock {
 	public static final BlockLE towerConsol = new TowerConsol("towerConsol");
 	public static final BlockLE lyokoGrass = (BlockLE) new BlockLE("lyokoGrass", Material.grass).setBlockUnbreakable().setResistance(6000000.0F);
 	public static final BlockLE lyokoTree = (BlockLE) new BlockLE("lyokoTree", Material.wood).setBlockUnbreakable().setResistance(6000000.0F);
+	public static final BlockLE lyokoForestMaster = (BlockLE) new LyokoForetMaster("lyokoForetMaster").setBlockUnbreakable().setResistance(6000000.0F);
 	
 	public static Block digitalSea = new BlockDigitalSea(ModFluid.DigitalSea, Material.water,"digitalSea").setResistance(6000000.0F);
 	
@@ -23,6 +24,7 @@ public class ModBlock {
 		GameRegistry.registerBlock(towerConsol, "towerConsol");
 		GameRegistry.registerBlock(lyokoGrass, "lyokoGrass");
 		GameRegistry.registerBlock(lyokoTree, "lyokoTree");
+		GameRegistry.registerBlock(lyokoForestMaster, "lyokoForestMaster");
 	}
 	
 	public static void initFluid() {

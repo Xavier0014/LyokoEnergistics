@@ -50,6 +50,7 @@ public class LyokoEnergistics {
 		network.registerMessage(PacketSuperComputer.Handler.class, PacketSuperComputer.class, 1, Side.SERVER);
 		network.registerMessage(PacketTowerConsol.Handler.class, PacketTowerConsol.class, 2, Side.SERVER);
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+		ModBiome.initBiome();
 	}
 	
 	@Mod.EventHandler
@@ -62,6 +63,6 @@ public class LyokoEnergistics {
 	
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent envent){
-		
+		ModDimension.initDimension();
 	}
 }

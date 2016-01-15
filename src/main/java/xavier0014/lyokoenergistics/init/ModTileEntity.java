@@ -10,6 +10,7 @@ public class ModTileEntity {
 		GameRegistry.registerTileEntity(TileMaterializationScanner.class, "lyokoenergistics:tilematerializationscanner");
 		GameRegistry.registerTileEntity(TileSuperComputer.class, "lyokoenergistics:TileSuperComputer");
 		GameRegistry.registerTileEntity(TileTowerConsol.class, "lyokoenergistics:TileTowerConsol");
+		GameRegistry.registerTileEntity(TileLyokoForetMaster.class, "lyokoenergistics:TileLyokoForetMaster");
 	}
 
 }

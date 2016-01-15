@@ -5,14 +5,19 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import xavier0014.lyokoenergistics.init.ModBlock;
+import xavier0014.lyokoenergistics.init.ModDimension;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldSettings.GameType;
 
 
 
@@ -22,6 +27,19 @@ public class VirtualisationScanner extends BlockLE{
 		super(name);
 	}
 	
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz){
+		if (player.dimension != ModDimension.dimentionID && !world.isRemote) {
+			player.setGameType(GameType.SURVIVAL);
+			player.travelToDimension(ModDimension.dimentionID);
+			player.worldObj.setBlock(0, 100, 0, ModBlock.lyokoTree);
+			player.worldObj.setBlock(1, 101, 0, ModBlock.lyokoGrass);
+			player.worldObj.setBlock(0, 101, 1, ModBlock.lyokoGrass);
+			player.worldObj.setBlock(-1, 101, 0, ModBlock.lyokoGrass);
+			player.worldObj.setBlock(0, 101, -1, ModBlock.lyokoGrass);
+		}else {
+		}
+		return true;
+	}
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase living, ItemStack stack){
 		if (!checkSpace(world,x,y,z)) {
 			world.setBlockToAir(x, y, z);
