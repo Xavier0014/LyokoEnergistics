@@ -6,6 +6,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import xavier0014.lyokoenergistics.init.ModBlock;
 import xavier0014.lyokoenergistics.init.ModDimension;
+import xavier0014.lyokoenergistics.tileentity.TileLyokoForetMaster;
+import xavier0014.lyokoenergistics.world.TeleporterLyokoForet;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 
@@ -28,14 +31,15 @@ public class VirtualisationScanner extends BlockLE{
 	}
 	
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz){
-		if (player.dimension != ModDimension.dimentionID && !world.isRemote) {
-			player.setGameType(GameType.SURVIVAL);
-			player.travelToDimension(ModDimension.dimentionID);
-			player.worldObj.setBlock(0, 100, 0, ModBlock.lyokoTree);
-			player.worldObj.setBlock(1, 101, 0, ModBlock.lyokoGrass);
-			player.worldObj.setBlock(0, 101, 1, ModBlock.lyokoGrass);
-			player.worldObj.setBlock(-1, 101, 0, ModBlock.lyokoGrass);
-			player.worldObj.setBlock(0, 101, -1, ModBlock.lyokoGrass);
+		if (player.dimension != ModDimension.dimentionID && player instanceof EntityPlayerMP) {
+			EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
+			mpPlayer.mcServer.getConfigurationManager().transferPlayerToDimension(mpPlayer, ModDimension.dimentionID,new TeleporterLyokoForet(mpPlayer.mcServer.worldServerForDimension(ModDimension.dimentionID)));
+			//player.travelToDimension(ModDimension.dimentionID);
+			if (!world.isRemote) {
+				player.worldObj.setBlock(0, 100, 0, ModBlock.lyokoForestMaster);
+				TileLyokoForetMaster tile = (TileLyokoForetMaster) player.worldObj.getTileEntity(0, 100, 0);
+				tile.player = player;
+			}
 		}else {
 		}
 		return true;

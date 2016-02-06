@@ -10,6 +10,7 @@ public class BiomeGenLyokoForest extends BiomeGenBase {
 	public BiomeGenLyokoForest(int id) {
 		super(id);
 		this.setDisableRain();
+		this.setBiomeName("Lyoko Forest");
 		this.topBlock = Blocks.air;
 		this.fillerBlock = Blocks.air;
 		this.spawnableMonsterList.clear();

@@ -4,8 +4,6 @@ import scala.reflect.internal.Trees.This;
 import xavier0014.lyokoenergistics.init.ModBiome;
 import xavier0014.lyokoenergistics.init.ModDimension;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.ChunkCoordinates;
@@ -54,7 +52,7 @@ public class ForetWorldProvider extends WorldProvider{
 	 
 	 @Override
 	 public ChunkCoordinates getSpawnPoint(){
-		return new ChunkCoordinates(0, 5, 0);
+		return new ChunkCoordinates(0, 60, 0);
 	 }
 	 
 	 @Override
@@ -62,5 +60,8 @@ public class ForetWorldProvider extends WorldProvider{
 	        ChunkCoordinates chunkcoordinates = new ChunkCoordinates(this.worldObj.getSpawnPoint());
 	        return chunkcoordinates;
 	    }
-
+	 @Override
+	 public ChunkCoordinates getEntrancePortalLocation() {
+	        return new ChunkCoordinates(0, 60, 0);
+	    }
 }

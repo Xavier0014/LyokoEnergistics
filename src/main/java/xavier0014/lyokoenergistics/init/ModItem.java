@@ -2,19 +2,16 @@ package xavier0014.lyokoenergistics.init;
 
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.Item.ToolMaterial;
-
 import xavier0014.lyokoenergistics.items.*;
 import xavier0014.lyokoenergistics.items.record.*;
 import xavier0014.lyokoenergistics.reference.Reference;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModItem {
 	
-	public static final ItemLE matteringot = (ItemLE) new ItemLE("matteringot");
-	public static final ItemLE quantumprocessor = (ItemLE) new ItemLE("quantumprocessor");
+	public static final ItemLE matteringot = new ItemLE("matteringot");
+	public static final ItemLE quantumprocessor = new ItemLE("quantumprocessor");
 	
-	public static final ItemSword DigitalSabre = (ItemSword) new ItemSword(ToolMaterial.EMERALD);
 	public static final ItemLE digitalsabre = (ItemLE) new DigitalSabre("digitalsabre");
 	public static final ItemLE laserarrows = (ItemLE) new LaserArrows("laserarrows");
 	public static final ItemLE energyfields = (ItemLE) new EnergyFields("energyfields");
@@ -40,13 +37,17 @@ public class ModItem {
 	public static final ItemLE reinforcedefficacite = (ItemLE) new ItemDescriptionLE("reinforcedefficacite", "").setMaxStackSize(1);
 	public static final ItemLE resonantefficacite = (ItemLE) new ItemDescriptionLE("resonantefficacite", "").setMaxStackSize(1);
 	
+	public static final ItemLE virtualEye = new VirtualEye("virtualEye");
+	
 	public static final RecordLE UnMondeSansDanger = new RecordLE("unmondesansdanger","Code Lyoko - Un monde sans danger");
+	public static final RecordLE senvoler = new RecordLE("senvoler","Code Lyoko - S'envoler");
 	
 	
 	public static void init(){
 		
 		GameRegistry.registerItem(matteringot, "matteringot");
 		GameRegistry.registerItem(UnMondeSansDanger, "UnMondeSansDanger");
+		GameRegistry.registerItem(senvoler, "senvoler");
 		GameRegistry.registerItem(quantumprocessor, "quantumprocessor");
 		
 		GameRegistry.registerItem(digitalsabre, "digitalsabre");
@@ -73,6 +74,8 @@ public class ModItem {
 		GameRegistry.registerItem(hardenedefficacite, "hardenedefficacite");
 		GameRegistry.registerItem(reinforcedefficacite, "reinforcedefficacite");
 		GameRegistry.registerItem(resonantefficacite, "resonantefficacite");
+		
+		//GameRegistry.registerItem(virtualEye, "virtualEye");
 	}
 
 }

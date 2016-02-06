@@ -2,7 +2,6 @@ package xavier0014.lyokoenergistics;
 
 import java.util.ArrayList;
 
-import sun.util.logging.resources.logging;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;

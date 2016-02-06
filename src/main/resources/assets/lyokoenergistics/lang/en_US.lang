@@ -1,8 +1,6 @@
 item.lyokoenergistics:matteringot.name=Matter Ingot
 item.lyokoenergistics:quantumprocessor.name=Quantum Processor
 
-item.lyokoenergistics:wireLessConecter.name=Wireless Conecter
-
 item.lyokoenergistics:digitalsabre.name=Digital Sabre[WIP]
 item.lyokoenergistics:laserarrows.name=Laser Arrows[WIP]
 item.lyokoenergistics:energyfields.name=Energy Fields[WIP]
@@ -28,7 +26,10 @@ item.lyokoenergistics:hardenedefficacite.name=Hardened Efficiency Upgrade
 item.lyokoenergistics:reinforcedefficacite.name=Reinforced Efficiency Upgrade
 item.lyokoenergistics:resonantefficacite.name=Resonant Efficiency Upgrade
 
+item.lyokoenergistics:virtualEye.name=Virtual Eye
+
 item.lyokoenergistics:unmondesansdanger.name=Un Monde Sans Danger
+item.lyokoenergistics:senvoler.name=S'envoler
 
 tile.lyokoenergistics:supercomputer.name=Supercomputer[WIP]
 tile.lyokoenergistics:materializationscanner.name=Materialization Scanner
@@ -42,5 +43,6 @@ tile.lyokoenergistics:digitalSea.name=Digital Sea
 itemGroup.lyokoenergistics_tabs=Lyoko Energistics
 
 item.record.unmondesansdanger.desc=Un Monde Sans Danger
+item.record.senvoler.desc=S'envoler
 
 tile.materializationscanner=Materialization Scanner

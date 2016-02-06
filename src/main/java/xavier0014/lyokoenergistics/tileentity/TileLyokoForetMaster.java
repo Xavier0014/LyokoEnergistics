@@ -3,32 +3,90 @@ package xavier0014.lyokoenergistics.tileentity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import xavier0014.lyokoenergistics.blocks.BlockLE;
 import xavier0014.lyokoenergistics.init.ModBlock;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.tileentity.TileEntity;
+import xavier0014.lyokoenergistics.init.ModItem;
 
 public class TileLyokoForetMaster extends TileEntityLE {
 	
 	private Random random = new Random();
 	private int i = -32;
 	private int j = -32;
-	private int progress = 0;
+	public static int progress = 0;
 	private int subpprogress = 0;
 	private ArrayList<int[]> coordArray = new ArrayList<int[]>();
 	private int towerNumb;
+	public EntityPlayer player;
+	public boolean isDimantionloading = false;
 	
-	
-	public void updateEntity(){
-		if (towerNumb == 10) {
-			worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.air);
+	public void initWorldGen() {
+		if (player instanceof EntityPlayerMP && !isDimantionloading) {
+			if (!(worldObj.getBlock(0, 62, 0) instanceof BlockLE)) {
+				EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
+				mpPlayer.mcServer.getCommandManager().executeCommand(MinecraftServer.getServer(), "/tp "+ player.getGameProfile().getName() +" 0 101 0");
+				for (int i = -1; i <= 1; i++) {
+					for (int j = -1; j <= 1; j++) {
+						if (!(i == 0 && j == 0)) {
+							worldObj.setBlock(i, 100, j, ModBlock.lyokoGrass);
+						}
+					}
+				}
+				for (int i = -2; i <= 2; i++) {
+					for (int j = -2; j <= 2; j++) {
+						for (int j2 = 0; j2 < 5; j2++) {
+							if (!(i >= -1 && j >= -1 && i <= 1 && j <= 1)) {
+								worldObj.setBlock(i, 100+j2, j, ModBlock.lyokoTree);
+							}
+						}
+					}
+				}
+				for (int i = -1; i <= 1; i++) {
+					for (int j = -1; j <= 1; j++) {
+						worldObj.setBlock(i, 104, j, ModBlock.lyokoTree);
+					}
+				}
+				worldObj.setBlock(0, 101, 1, Blocks.jukebox);
+				worldObj.setBlock(0, 103, 1, Blocks.torch);
+				if (!worldObj.isRemote) {
+					worldObj.spawnEntityInWorld(new EntityItem(worldObj, 0, 103, 1, new ItemStack(ModItem.UnMondeSansDanger)));
+					worldObj.spawnEntityInWorld(new EntityItem(worldObj, 0, 103, 1, new ItemStack(ModItem.senvoler)));
+				}
+				isDimantionloading = true;
+			}else {
+				EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
+				mpPlayer.mcServer.getCommandManager().executeCommand(MinecraftServer.getServer(), "/tp "+ player.getGameProfile().getName() +" 0 64 0");
+				worldObj.setBlockToAir(0, 100, 0);
+			}
 		}
+	}
+	
+	public void endingWorldGen() {
+		EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
+		mpPlayer.mcServer.getCommandManager().executeCommand(MinecraftServer.getServer(), "/tp "+ player.getGameProfile().getName() +" 0 64 0");
+		for (int i = -3; i < 3; i++) {
+			for (int j = 99; j < 106; j++) {
+				for (int j2 = -3; j2 < 3; j2++) {
+					worldObj.setBlockToAir(i, j, j2);
+				}
+			}
+		}
+		worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.air);
+	}
+	
+	public void updateEntity(){	
+		initWorldGen();
 		if (!worldObj.isRemote) {
 		switch (progress) {
 		case 0:
-			//generateDigitalSea();
-			progress =1;
+			generateDigitalSea();
+			//progress =1;
 			break;
 		case 1:
 			spawnPlatforme(0, 60, 0);
@@ -38,11 +96,11 @@ public class TileLyokoForetMaster extends TileEntityLE {
 			generateLyoko();
 			break;
 		case 3:
-			//generateTree();
-			progress = 4;
+			generateTree();
+			//progress = 4;
 			break;
 		case 4:
-			worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.air);
+			endingWorldGen();
 			break;
 		default:
 			break;
@@ -54,13 +112,10 @@ public class TileLyokoForetMaster extends TileEntityLE {
 		if (coordArray.size() != subpprogress) {
 			int[] coord = coordArray.get(subpprogress);
 			if (coord[4] == 1) {
-				//System.out.println(1);
 				generateWay(coord[0],coord[1],coord[2],coord[3],random.nextInt(50));
 			}else if (coord[4] == 2) {
-				//System.out.println(2);
 				spawnInter1(coord[0], coord[1], coord[2], coord[3]);
 			}else if (coord[4] == 3) {
-				//System.out.println(3);
 				generateWayLv2(coord[0],coord[1],coord[2],coord[3],random.nextInt(50));
 			}else if (coord[4] == 4) {
 				int rand = random.nextInt(2);
@@ -215,12 +270,11 @@ public class TileLyokoForetMaster extends TileEntityLE {
 	}
 	
 	private void generateWayLv2(int x, int y, int z, int side,int rint){
-		int mint = rint+50;
+		int mint = rint+60;
 		double i;
 		int Coord = 0;
 		if (side == 1) {
-			if (canspawnWay(x-4, y, z-rint, x+4, y+1, z)) {
-				System.out.println(1);
+			if (canspawnWay(x-16, y, z+4, x+16, y+1, z+(mint+60))) {
 				for (i = z; i > z-mint; i--) {
 					Coord = (int) Math.round(3*Math.sin(i/5));
 					for (int j = Coord-4; j < Coord+4; j++) {
@@ -231,8 +285,7 @@ public class TileLyokoForetMaster extends TileEntityLE {
 				coordArray.add(new int[]{Coord+x,y,(int) i,side,4});
 			}
 		}else if (side == 2) {
-			if (canspawnWay(x, y, z-4, x+rint, y+1, z+4)) {
-				System.out.println(2);
+			if (canspawnWay(x+4, y, z-16, x+(mint+60), y+1, z+16)) {
 				for (i = x; i < x+mint; i++) {
 					Coord = (int) Math.round(3*Math.sin(i/5));
 					for (int j = Coord-4; j < Coord+4; j++) {
@@ -243,8 +296,7 @@ public class TileLyokoForetMaster extends TileEntityLE {
 				coordArray.add(new int[]{(int) i,y,Coord+z,side,4});
 			}
 		}else if (side == 3) {
-			if (canspawnWay(x-4, y, z, x+4, y+1, z+rint)) {
-				System.out.println(3);
+			if (canspawnWay(x-16, y, z-(mint+60), x+16, y+1, z-4)) {
 				for (i = z; i < z+mint; i++) {
 					Coord = (int) Math.round(3*Math.sin(i/5));
 					for (int j = Coord-4; j < Coord+4; j++) {
@@ -255,8 +307,7 @@ public class TileLyokoForetMaster extends TileEntityLE {
 				coordArray.add(new int[]{Coord+x,y,(int) i,side,4});
 			}
 		}else if (side == 4) {
-			if (canspawnWay(x-rint, y, z-4, x, y+1, z+4)) {
-				System.out.println(4);
+			if (canspawnWay(x-(mint+60), y, z-16, x-4, y+1, z+16)) {
 				for (i = x; i > x-mint; i--) {
 					Coord = (int) Math.round(3*Math.sin(i/5));
 					for (int j = Coord-4; j < Coord+4; j++) {
@@ -313,6 +364,9 @@ public class TileLyokoForetMaster extends TileEntityLE {
 	}
 	
 	private boolean canspawnWay(int x1, int y1, int z1,int x2, int y2,int z2) {
+		if (x1 >= 300 || x1 <= -300 || z1 <= -300 || z1 >= 300) {
+			return false;
+		}
 		for (int i = x1; i < x2; i++) {
 			for (int j = y1; j < y2; j++) {
 				for (int j2 = z1; j2 < z2; j2++) {
@@ -325,51 +379,51 @@ public class TileLyokoForetMaster extends TileEntityLE {
 		//if (x1 < 0 && x2 > x1 && !(x2-x1 < 10)) {
 		//	return false;
 		//}
-		if ( x2 > x1 && !(x2-x1 < 10) && moreXorZ(x1, x2, z1, z2).equals(CorrdEnum.x)) {
-			return false;
-		}
+		//if ( x2 > x1 && !(x2-x1 < 10) && moreXorZ(x1, x2, z1, z2).equals(CorrdEnum.x)) {
+		//	return false;
+		//}
 		//if (z1 < 0 && z2 > z1) {
 		//	return false;
 		//}
-		if (z2 > z1 && !(z2-z1 < 10)&& moreXorZ(x1, x2, z1, z2).equals(CorrdEnum.z)) {
-			return false;
-		}
+		//if (z2 > z1 && !(z2-z1 < 10)&& moreXorZ(x1, x2, z1, z2).equals(CorrdEnum.z)) {
+		//	return false;
+		//}
 		return true;
 	}
-	private enum CorrdEnum{
-		x,y,z
-	}
-	private CorrdEnum moreXorZ(int x1, int x2, int z1, int z2) {
-		if (x1 < 0) {
-			if (z1 < 0) {
-				if (x1 < z1) {
-					return CorrdEnum.x;
-				}else {
-					return CorrdEnum.z;
-				}
-			}else {
-				if (Math.pow(x1, 2) < Math.pow(z1, 2)) {
-					return CorrdEnum.z;
-				}else {
-					return CorrdEnum.x;
-				}
-			}
-		}else {
-			if (z1 < 0) {
-				if (Math.pow(x1, 2) < Math.pow(z1, 2)) {
-					return CorrdEnum.x;
-				}else {
-					return CorrdEnum.z;
-				}
-			}else {
-				if (x1 < z1) {
-					return CorrdEnum.z;
-				}else {
-					return CorrdEnum.x;
-				}
-			}
-		}
-	}
+//	private enum CorrdEnum{
+//		x,y,z
+//	}
+//	private CorrdEnum moreXorZ(int x1, int x2, int z1, int z2) {
+//		if (x1 < 0) {
+//			if (z1 < 0) {
+//				if (x1 < z1) {
+//					return CorrdEnum.x;
+//				}else {
+//					return CorrdEnum.z;
+//				}
+//			}else {
+//				if (Math.pow(x1, 2) < Math.pow(z1, 2)) {
+//					return CorrdEnum.z;
+//				}else {
+//					return CorrdEnum.x;
+//				}
+//			}
+//		}else {
+//			if (z1 < 0) {
+//				if (Math.pow(x1, 2) < Math.pow(z1, 2)) {
+//					return CorrdEnum.x;
+//				}else {
+//					return CorrdEnum.z;
+//				}
+//			}else {
+//				if (x1 < z1) {
+//					return CorrdEnum.z;
+//				}else {
+//					return CorrdEnum.x;
+//				}
+//			}
+//		}
+//	}
 	
 	private void drawDisk(int r,int x, int y, int z, Block block){
 		for (int i = r; i >= 1; i--) {

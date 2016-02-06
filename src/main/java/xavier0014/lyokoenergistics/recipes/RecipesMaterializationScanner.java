@@ -27,11 +27,11 @@ public class RecipesMaterializationScanner {
 	Materials ae2_materials = AEApi.instance().materials();
 	
 	public RecipesMaterializationScanner(){
-		this.addRecipe(new ItemStack(ModItem.matteringot),0,250000,500);
+		this.addRecipe(new ItemStack(ModItem.matteringot),0,250000,320);
 		this.addRecipe(new ItemStack(Items.iron_ingot),1,50000,256);
 		this.addRecipe(new ItemStack(Items.gold_ingot),2,500000,2048);
 		this.addRecipe(new ItemStack(Items.diamond),3,1000000,8192);
-		this.addRecipe(new ItemStack(Items.dye, 1, 4),4,100000,864);
+		this.addRecipe(new ItemStack(Items.dye, 1, 4),4,150000,864);
 		this.addRecipe(new ItemStack(Items.coal),5,500000,32);
 		this.addRecipe(null,6,0,0);
 		this.addRecipe(null,7,0,0);
@@ -48,7 +48,7 @@ public class RecipesMaterializationScanner {
 		}
 		if (Loader.isModLoaded("gregtech")) {
 			this.addRecipe(new ItemStack(GameRegistry.findItem("gregtech", "gt.metaitem.01"),1,11035),12,150000,85);
-			this.addRecipe(new ItemStack(GameRegistry.findItem("gregtech", "gt.metaitem.01"),1,11037),13,350000,256);
+			this.addRecipe(new ItemStack(GameRegistry.findItem("gregtech", "gt.metaitem.01"),1,11037),13,200000,256);
 			this.addRecipe(new ItemStack(GameRegistry.findItem("gregtech", "gt.metaitem.01"),1,11054),14,475000,1024);
 			this.addRecipe(new ItemStack(GameRegistry.findItem("gregtech", "gt.metaitem.01"),1,11089),15,400000,512);
 			this.addRecipe(new ItemStack(GameRegistry.findItem("gregtech", "gt.metaitem.01"),1,11034),16,450000,1024);
