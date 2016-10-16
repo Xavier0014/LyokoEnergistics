@@ -13,7 +13,7 @@ public class LECreativeTabs extends CreativeTabs{
 	
 	@Override
 	public Item getTabIconItem() {
-		return Item.getItemFromBlock(ModBlock.supercomputer);
+		return Item.getItemFromBlock(ModBlock.superComputerCassing);
 	}
 
 }

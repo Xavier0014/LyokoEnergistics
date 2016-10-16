@@ -1,12 +1,15 @@
 package xavier0014.lyokoenergistics.blocks;
 
+import java.util.ArrayList;
+
 import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridNode;
 
 import com.mojang.authlib.GameProfile;
+
 import xavier0014.lyokoenergistics.LyokoEnergistics;
 import xavier0014.lyokoenergistics.tileentity.TileSuperComputer;
-
+import xavier0014.lyokoenergistics.tileentity.TileSuperComputerControler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -31,15 +34,15 @@ public class SuperComputer extends BlockLE{
 		TileEntity tile = world.getTileEntity(x, y, z);
         if (tile != null && tile instanceof TileSuperComputer) {
         	TileSuperComputer tilesc = (TileSuperComputer) tile;
+        	TileSuperComputer tilemaster = (TileSuperComputer) world.getTileEntity(tilesc.masterX, tilesc.masterY, tilesc.masterZ);
             if (tilesc.hasMaster()) {
-            	if (tilesc.playerName == "") {
+            	if (tilemaster.playerName == "") {
          			GameProfile gameprofile = player.getGameProfile();
-     	        	tilesc.setPlayerName(gameprofile.getName());
+         			tilemaster.setPlayerName(gameprofile.getName());
+     	        	TileSuperComputerControler.playersList.put(gameprofile.getName(), 0);
 				}
-            	if (!world.isRemote){
             		player.openGui(LyokoEnergistics.instance, 1, world, tilesc.getMasterX(), tilesc.getMasterY(), tilesc.getMasterZ());
             		return true;
-            	}
             }
         }
 		return true;
@@ -89,37 +92,6 @@ public class SuperComputer extends BlockLE{
 		}else{
 			return this.blockIcon;
 		}
-	}
-	
-	@Override
-	public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
-		if(meta == 0){
-			if(world.isRemote)
-				return;
-			TileEntity tile = world.getTileEntity(x, y, z);
-			if(tile != null){
-				if(tile instanceof IGridHost){
-					((IGridHost) tile).getGridNode(ForgeDirection.UNKNOWN).updateState();
-				}
-			}
-		}
-	}
-	@Override
-	public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
-		if(meta == 0){
-			if(world.isRemote)
-				return;
-			TileEntity tile  = world.getTileEntity(x, y, z);
-			if(tile != null){
-				if(tile instanceof IGridHost){
-					IGridNode  node =((IGridHost) tile).getGridNode(ForgeDirection.UNKNOWN);
-					if(node != null){
-						node.destroy();
-					}
-				}
-			}
-		}
-	}
-	
+	}	
 
 }

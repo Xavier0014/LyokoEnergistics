@@ -9,6 +9,7 @@ import xavier0014.lyokoenergistics.gui.GuiSuperComputer;
 import xavier0014.lyokoenergistics.gui.GuiTowerConsol;
 import xavier0014.lyokoenergistics.tileentity.TileMaterializationScanner;
 import xavier0014.lyokoenergistics.tileentity.TileSuperComputer;
+import xavier0014.lyokoenergistics.tileentity.TileSuperComputerControler;
 import xavier0014.lyokoenergistics.tileentity.TileTowerConsol;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -21,15 +22,12 @@ public class GuiHandler implements IGuiHandler{
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileMaterializationScanner){
-			tile = (TileMaterializationScanner)tile;
 			return new ContainerMaterializationScanner((TileMaterializationScanner)tile, player.inventory);
 		}
-		if(tile instanceof TileSuperComputer){
-			tile = (TileSuperComputer)tile;
-			return new ContainerSuperComputer((TileSuperComputer) tile, player.inventory);
+		if(tile instanceof TileSuperComputerControler){
+			return new ContainerSuperComputer((TileSuperComputerControler)tile, player.inventory);
 		}
 		if(tile instanceof TileTowerConsol){
-			tile = (TileTowerConsol)tile;
 			return new ContainerTowerConsol((TileTowerConsol) tile, player.inventory);
 		}
 		return null;
@@ -41,8 +39,8 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TileMaterializationScanner){
 			return new GuiMaterializationScanner((TileMaterializationScanner)tile, player.inventory);
 		}
-		if(tile instanceof TileSuperComputer){
-			return new GuiSuperComputer((TileSuperComputer) tile, player.inventory);
+		if(tile instanceof TileSuperComputerControler){
+			return new GuiSuperComputer((TileSuperComputerControler) tile, player.inventory);
 		}
 		if(tile instanceof TileTowerConsol){
 			return new GuiTowerConsol((TileTowerConsol) tile, player.inventory);

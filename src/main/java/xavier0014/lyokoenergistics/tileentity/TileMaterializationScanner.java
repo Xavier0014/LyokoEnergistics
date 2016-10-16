@@ -13,6 +13,7 @@ import xavier0014.lyokoenergistics.blocks.MaterializationScanner;
 import xavier0014.lyokoenergistics.gui.GuiMaterializationScanner;
 import xavier0014.lyokoenergistics.handler.Upgrade;
 import xavier0014.lyokoenergistics.init.ModItem;
+import xavier0014.lyokoenergistics.items.ItemDescriptionLE;
 import xavier0014.lyokoenergistics.items.ItemLE;
 import xavier0014.lyokoenergistics.recipes.RecipesMaterializationScanner;
 import cofh.api.energy.EnergyStorage;
@@ -246,7 +247,7 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 	
 	//-----------------------------------------------------------------------------
 	
-	private EnergyStorage storage = new EnergyStorage(51200000,32000,0);
+	protected EnergyStorage storage = new EnergyStorage(51200000,32000,0);
 	
 	@Override
 	public boolean canConnectEnergy(ForgeDirection from) {
@@ -323,9 +324,9 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 		matterball = new ItemStack(ae2_materials.materialMatterBall.item());
 		this.itemstack = RecipesMaterializationScanner.smelting().result.get(craft);
 		if (Loader.isModLoaded("ExtraUtilities")) {
-			this.matter = RecipesMaterializationScanner.smelting().matter.get(craft);
+			this.matter = RecipesMaterializationScanner.smelting().matter.get(craft)*16;
 		}else {
-			this.matter = (int) RecipesMaterializationScanner.smelting().matter.get(craft)/4;
+			this.matter = (int) RecipesMaterializationScanner.smelting().matter.get(craft)*2;
 		}
 		setWorkingTimeNeeded((int) ((RecipesMaterializationScanner.smelting().time.get(craft)/energieuse)*energiemultiplier));
     	switch (i) {
@@ -357,18 +358,15 @@ public class TileMaterializationScanner extends TileEntityModelLE implements IIn
 			}
 			break;
 		}
-    	
-    	if (this.contenu[0] != null && matterball.getItem().equals(this.contenu[0].getItem()) && nomberMB <= 40000){
-    		if (this.contenu[0].getItemDamage() == 6) {
+    	upgradeSlotUpdate();
+    	if (this.contenu[0] != null && !(this.contenu[0].getItem() instanceof ItemLE) && nomberMB <= 40000){
     		  if (this.contenu[0].stackSize <= 0){
                   this.contenu[0] = null;
               }else{
                  nomberMB = nomberMB + this.contenu[0].stackSize;
                  this.contenu[0] = null;
               }
-    		}
 		}
-    	upgradeSlotUpdate();
     }
 	
 	public void smeltItem(){

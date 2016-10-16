@@ -3,6 +3,7 @@ package xavier0014.lyokoenergistics.tileentity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import xavier0014.lyokoenergistics.blocks.SuperComputerControler;
 import xavier0014.lyokoenergistics.recipes.RecipesMaterializationScanner;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -20,6 +21,7 @@ public class TileTowerConsol extends TileEntityLE {
 	public int progresse;
 	public int menu;
 	public boolean itemtogive;
+	private boolean ismodify;
 	
 	@Override
 	public void updateEntity() {
@@ -29,11 +31,18 @@ public class TileTowerConsol extends TileEntityLE {
 				randomInt = random.nextInt(result.size());
 				if (isValidNumber(randomInt)) {
 					isProsesing = true;
+					if (!ismodify) {
+						TileSuperComputerControler.modifyEnergyByPlayer(playerName, 400);
+						ismodify =true;
+					}
 					time1 = System.nanoTime();
 				}
 			}
 		}else {
-			progresse = (int) (((System.nanoTime()-time1)*100)/25000000000L);
+			if (true) {
+				progresse = (int) (((System.nanoTime()-time1)*100)/25000000000L);
+			}
+			
 			//System.out.println(System.nanoTime()-time1);
 			if ((System.nanoTime()-time1) >= 25000000000L) {
 				if (worldObj.isRemote) {
@@ -42,6 +51,10 @@ public class TileTowerConsol extends TileEntityLE {
 					if (TileMaterializationScanner.knowledge.containsKey(playerName)) {
 						TileMaterializationScanner.knowledge.get(playerName).set(randomInt,true);
 					}
+				}
+				if (ismodify) {
+					TileSuperComputerControler.modifyEnergyByPlayer(playerName, -400);
+					ismodify =false;
 				}
 				isProsesing = false;
 				towerid = 0;

@@ -1,0 +1,46 @@
+item.lyokoenergistics:matteringot.name=Lingot de Matiere
+item.lyokoenergistics:quantumprocessor.name=Processeur Quantique
+
+item.lyokoenergistics:digitalsabre.name=Sabre Digital[WIP]
+item.lyokoenergistics:laserarrows.name=Fleches lasers[WIP]
+item.lyokoenergistics:energyfields.name=Champ de Force[WIP]
+item.lyokoenergistics:fan.name=Eventail Digital[WIP]
+
+item.lyokoenergistics:basiccore.name=Noyau de base d'Amelioration
+item.lyokoenergistics:hardenedcore.name=Noyau Durci d'Amelioration
+item.lyokoenergistics:reinforcedcore.name=Noyau Renforce d'Amelioration
+item.lyokoenergistics:resonantcore.name=Noyau Resonant d'Amelioration
+
+item.lyokoenergistics:basicspeed.name=Amelioration de Base de la Vitesse
+item.lyokoenergistics:hardenedspeed.name=Amelioration Durci de la Vitesse
+item.lyokoenergistics:reinforcedspeed.name=Amelioration Renforce de la Vitesse
+item.lyokoenergistics:resonantspeed.name=Amelioration Resonant de la Vitesse
+
+item.lyokoenergistics:basicstorage.name=Amelioration de Base du Stockage d'Energie 
+item.lyokoenergistics:hardenedstorage.name=Amelioration Durci du Stockage d'Energie 
+item.lyokoenergistics:reinforcedstorage.name=Amelioration Renforce du Stockage d'Energie
+item.lyokoenergistics:resonantstorage.name=Amelioration Resonant du Stockage d'Energie 
+
+item.lyokoenergistics:basicefficacite.name=Amelioration de Base de l'Efficacite
+item.lyokoenergistics:hardenedefficacite.name=Amelioration Durci de l'Efficacite
+item.lyokoenergistics:reinforcedefficacite.name=Amelioration Renforce de l'Efficacite
+item.lyokoenergistics:resonantefficacite.name=Amelioration Resonant de l'Efficacite
+
+item.lyokoenergistics:virtualEye.name=Virtual Eye**
+
+item.lyokoenergistics:unmondesansdanger.name=Un Monde Sans Danger
+item.lyokoenergistics:senvoler.name=S'envoler
+
+tile.lyokoenergistics:supercomputer.name=Supercalculateur[WIP]
+tile.lyokoenergistics:materializationscanner.name=Materialiseur de Matiere
+tile.lyokoenergistics:virtualisationScanner.name=Scanners de Virtualisation[WIP]
+tile.lyokoenergistics:towerConsol.name=Interface de Recherche
+tile.lyokoenergistics:lyokoGrass.name=Herbe de Lyoko
+tile.lyokoenergistics:lyokoTree.name=Arbre de Lyoko
+
+tile.lyokoenergistics:digitalSea.name=Mer Numerique
+
+itemGroup.lyokoenergistics_tabs=Lyoko Energistics
+
+item.record.unmondesansdanger.desc=Un Monde Sans Danger
+item.record.senvoler.desc=S'envoler

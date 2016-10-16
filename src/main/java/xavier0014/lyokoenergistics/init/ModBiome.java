@@ -7,7 +7,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class ModBiome {
 	
-	public static BiomeGenBase biomeLyokoForest = new BiomeGenLyokoForest(34);
+	public static BiomeGenBase biomeLyokoForest = new BiomeGenLyokoForest(90);
 	
 	public static void initBiome() {
 		BiomeDictionary.registerBiomeType(biomeLyokoForest, Type.FOREST);

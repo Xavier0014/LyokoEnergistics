@@ -2,17 +2,18 @@ package xavier0014.lyokoenergistics.container;
 
 import xavier0014.lyokoenergistics.recipes.SlotResult;
 import xavier0014.lyokoenergistics.tileentity.TileSuperComputer;
-
+import xavier0014.lyokoenergistics.tileentity.TileSuperComputerControler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerSuperComputer extends Container{
-	private final TileSuperComputer tilesc;
+	private final TileSuperComputerControler tilesc;
 	
-	public ContainerSuperComputer(TileSuperComputer tile,InventoryPlayer inventory){
+	public ContainerSuperComputer(TileSuperComputerControler tile,InventoryPlayer inventory){
 		this.tilesc = tile;
 		tile.openInventory();
 		
@@ -24,7 +25,7 @@ public class ContainerSuperComputer extends Container{
 	private void bindPlayerInventory(InventoryPlayer inventory){
 		 for (int j = 0; j < 3; ++j){
 	         for (int k = 0; k < 9; ++k){
-	             this.addSlotToContainer(new Slot(inventory, k + j * 9 +9, 8 + k * 18 - 1, 103 + j * 18 -11));
+	             this.addSlotToContainer(new Slot(inventory, k + j * 9 +9, 7 + k * 18 - 1, 103 + j * 18 -11));
 	         }
 	     }
 		 
@@ -38,7 +39,7 @@ public class ContainerSuperComputer extends Container{
 		return this.tilesc.isUseableByPlayer(player);
 	}
 	
-	public TileSuperComputer getTileSuperComputer(){
+	public TileSuperComputerControler getTileSuperComputer(){
 		return tilesc;
 	}
 	

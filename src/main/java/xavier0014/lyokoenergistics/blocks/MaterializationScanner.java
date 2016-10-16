@@ -58,8 +58,8 @@ public class MaterializationScanner extends BlockModelLE{
         TileEntity tile = world.getTileEntity(x, y, z);
         if(tile instanceof TileMaterializationScanner){
         	
-        	TileMaterializationScanner tileTuto = (TileMaterializationScanner)tile;
-            switch(tileTuto.getDirection()){
+        	TileMaterializationScanner tilems = (TileMaterializationScanner)tile;
+            switch(tilems.getDirection()){
             
                 case 0:
                     this.setBlockBounds(0.06F, 0.0F, 0.0F, 0.94F, 0.75F, 0.94F); //valeur pour la direction 0

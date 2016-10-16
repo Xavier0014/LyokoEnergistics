@@ -4,11 +4,16 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import xavier0014.lyokoenergistics.LyokoEnergistics;
 import xavier0014.lyokoenergistics.init.ModBlock;
 import xavier0014.lyokoenergistics.init.ModDimension;
+import xavier0014.lyokoenergistics.reference.Reference;
 import xavier0014.lyokoenergistics.tileentity.TileLyokoForetMaster;
+import xavier0014.lyokoenergistics.tileentity.TileVirtualisationScanner;
 import xavier0014.lyokoenergistics.world.TeleporterLyokoForet;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,6 +22,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
@@ -25,10 +31,35 @@ import net.minecraft.world.WorldSettings.GameType;
 
 
 public class VirtualisationScanner extends BlockLE{
+	
+	 private String name;
+	 
+	public VirtualisationScanner(Material material,String name) {
+	        super(name);
+	        this.name = name;
+	        setBlockName(Reference.MOD_id +":"+name);
+	        this.setCreativeTab(LyokoEnergistics.lyokotab);
+	    }
 
-	public VirtualisationScanner(String name) {
-		super(name);
-	}
+	    @Override
+	    public boolean renderAsNormalBlock(){
+	        return false;
+	    }
+
+//	    @Override
+//	    public int getRenderType(){
+//	        return -1;
+//	    }
+
+	    @Override
+	    public boolean isOpaqueCube(){
+	        return false;
+	    }
+
+	    //@Override
+	    public TileEntity createNewTileEntity(World world, int par2) {
+	        return new TileVirtualisationScanner();
+	    }
 	
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz){
 		if (player.dimension != ModDimension.dimentionID && player instanceof EntityPlayerMP) {

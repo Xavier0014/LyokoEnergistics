@@ -1,11 +1,14 @@
 package xavier0014.lyokoenergistics.init;
 
+import com.google.common.annotations.Beta;
+
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.Item.ToolMaterial;
 import xavier0014.lyokoenergistics.items.*;
 import xavier0014.lyokoenergistics.items.record.*;
 import xavier0014.lyokoenergistics.reference.Reference;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.DependsOn;
 
 public class ModItem {
 	
@@ -37,10 +40,10 @@ public class ModItem {
 	public static final ItemLE reinforcedefficacite = (ItemLE) new ItemDescriptionLE("reinforcedefficacite", "").setMaxStackSize(1);
 	public static final ItemLE resonantefficacite = (ItemLE) new ItemDescriptionLE("resonantefficacite", "").setMaxStackSize(1);
 	
-	public static final ItemLE virtualEye = new VirtualEye("virtualEye");
+//	public static final ItemLE virtualEye = new VirtualEye("virtualEye");
 	
 	public static final RecordLE UnMondeSansDanger = new RecordLE("unmondesansdanger","Code Lyoko - Un monde sans danger");
-	public static final RecordLE senvoler = new RecordLE("senvoler","Code Lyoko - S'envoler");
+	public static final RecordLE senvoler = new RecordLE("senvoler","Subdigitals - S'envoler");
 	
 	
 	public static void init(){

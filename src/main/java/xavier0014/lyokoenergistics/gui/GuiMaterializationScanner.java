@@ -69,9 +69,9 @@ public class GuiMaterializationScanner extends GuiContainer{
 		int energie;
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(texture);
-        int k = (this.width - this.xSize)/2;
+        int k = (this.width- this.xSize)/2;
         int l = (this.height - this.ySize)/2;
-        initButton((this.width - this.xSize)/2,(this.height - this.ySize)/2);
+        initButton(k,l);
         upgrade = new Upgrade(k-42,l,tilems);
         energy = new Energy(tilems.getEnergyStored(null),tilems.getMaxEnergyStored(null));
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
@@ -180,8 +180,10 @@ public class GuiMaterializationScanner extends GuiContainer{
         buttonList.add(new GuiButton(7, k+174, l+29, 74, 20, "-"));
 		buttonList.add(new GuiButton(8, k+174, l+49, 74, 20, "redstone"));
 		buttonList.add(new GuiButton(9, k+174, l+69, 74, 20, "quartz"));
-		buttonList.add(new GuiButton(10, k+174, l+89, 74, 20, "certus"));
-		buttonList.add(new GuiButton(11, k+174, l+109, 74, 20, "emerald"));
+		buttonList.add(new GuiButton(10, k+174, l+89, 74, 20, "emerald"));
+		if (Loader.isModLoaded("appliedenergistics2")&&!Loader.isModLoaded("gregtech")) {
+			buttonList.add(new GuiButton(11, k+174, l+109, 74, 20, "certus"));
+		}
 		if (Loader.isModLoaded("ThermalFoundation")&&!Loader.isModLoaded("gregtech")) {
 			buttonList.add(new GuiButton(12, k+174, l+129, 74, 20, "copper"));
 			buttonList.add(new GuiButton(13, k+174, l+49, 74, 20, "tin"));
@@ -189,6 +191,7 @@ public class GuiMaterializationScanner extends GuiContainer{
 			buttonList.add(new GuiButton(15, k+174, l+89, 74, 20, "lead"));
 			buttonList.add(new GuiButton(16, k+174, l+109, 74, 20, "ferrous"));
 		}else if (Loader.isModLoaded("gregtech")) {
+			buttonList.add(new GuiButton(11, k+174, l+109, 74, 20, "certus"));
 			buttonList.add(new GuiButton(12, k+174, l+129, 74, 20, "copper"));
 			buttonList.add(new GuiButton(13, k+174, l+49, 74, 20, "tin"));
 			buttonList.add(new GuiButton(14, k+174, l+69, 74, 20, "silver"));

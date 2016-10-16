@@ -1,40 +1,29 @@
 package xavier0014.lyokoenergistics.tileentity;
 
-import java.util.EnumSet;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
-import xavier0014.lyokoenergistics.init.ModItem;
-
-import appeng.api.AEApi;
-import appeng.api.implementations.IPowerChannelState;
-import appeng.api.networking.GridFlags;
-import appeng.api.networking.GridNotification;
-import appeng.api.networking.IGrid;
-import appeng.api.networking.IGridBlock;
-import appeng.api.networking.IGridHost;
-import appeng.api.networking.IGridMultiblock;
-import appeng.api.networking.IGridNode;
-import appeng.api.networking.storage.IStorageGrid;
-import appeng.api.util.AECableType;
-import appeng.api.util.AEColor;
-import appeng.api.util.DimensionalCoord;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import xavier0014.lyokoenergistics.init.ModItem;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
 
-public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, IInventory, IGridHost, IGridBlock{
+public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, IInventory{
 	
 	private boolean hasMaster, isMaster;
     public int masterX, masterY, masterZ;
     public boolean onoff;
     public TileSuperComputer mastertile;
+//    public static HashMap<String, ArrayList<Boolean>> playersList = new HashMap<String, ArrayList<Boolean>>();
+    public static final Boolean[] template = {false};
+    
+    
     
     public TileSuperComputer(){
     	
@@ -43,45 +32,100 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        compound.setBoolean("onoff", onoff);
+       
         compound.setBoolean("hasMaster", hasMaster);
         compound.setBoolean("isMaster", isMaster);
         compound.setInteger("masterX", masterX);
         compound.setInteger("masterY", masterY);
         compound.setInteger("masterZ", masterZ);
         if (hasMaster() && isMaster()) {
-        	
+        	compound.setBoolean("onoff", onoff);
+//        	savePlayerData(compound);
+        	storage.writeToNBT(compound);
         }
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        onoff = compound.getBoolean("onoff");
+       
         hasMaster = compound.getBoolean("hasMaster");
         isMaster = compound.getBoolean("isMaster");
         masterX = compound.getInteger("masterX");
         masterY = compound.getInteger("masterY");
         masterZ = compound.getInteger("masterZ");
         if (hasMaster() && isMaster()) {
-        	
+        	onoff = compound.getBoolean("onoff");
+//        	readPlayerData(compound);
         }
+        storage.readFromNBT(compound);
     }
+    
+//    public void savePlayerData(NBTTagCompound compound) {
+//    	try {
+//    		int k = 0;
+//    		for (String i : playersList.keySet()) {
+//    		    ArrayList<Boolean> playerKnow = playersList.get(i);
+//    		    for (int j = 0; j < playerKnow.size(); j++) {
+//    		    	compound.setBoolean("knowledge"+i+j, playerKnow.get(j));
+//    			}
+//    		    compound.setString("pName"+k, i);
+//    		    k++;
+//    		    compound.setInteger("playerKownSize", playerKnow.size());
+//    		}
+//    		compound.setInteger("kownSize", playersList.size());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	} 
+//	
+//	public void readPlayerData(NBTTagCompound compound) {
+//		ArrayList<String> playerList = new ArrayList<String>(); 
+//		for (int k = 0; k < compound.getInteger("kownSize"); k++) {
+//			playerList.add(compound.getString("pName"+k));
+//		}
+//		for (String i : playerList) {
+//			ArrayList<Boolean> l = new ArrayList<Boolean>();
+//			for (int j = 0; j < compound.getInteger("playerKownSize"); j++) {
+//				l.add(compound.getBoolean("knowledge"+i+j));
+//			}
+//			playersList.put(i, l);
+//		}
+//	}
 	
 	
 	@Override
-    public void updateEntity() {
+	public void updateEntity() {
+//		if (onoff) {
+//    		storage.setEnergyStored(storage.getEnergyStored()-100);
+//    		try {
+//    			playersList.get(playerName).add(0, true);//is on
+//    			System.out.println(Boolean.toString(playersList.get(playerName).get(0))+this.playerName + storage.getEnergyStored());
+//			} catch (NullPointerException e) {
+//				TileSuperComputer.playersList.put(this.playerName, new ArrayList<Boolean>(Arrays.asList(template)));
+//				System.err.println("err");
+//			}
+//    	}else {
+//    		try {
+//    			playersList.get(playerName).add(0, false);//is on
+//			} catch (NullPointerException e) {
+//				TileSuperComputer.playersList.put(this.playerName, new ArrayList<Boolean>(Arrays.asList(template)));
+//				System.err.println("err");
+//			}
+//		}
+		if (storage.getEnergyStored() <= 0) {
+			onoff = false;
+		}
 		upgradeSlotUpdate();
 		updateValue();
-        if (!worldObj.isRemote) {
-            if (hasMaster()) { 
-                if (isMaster()) {
-                
-                }
-            } else {
-                if (checkMultiBlockForm())
-                    setupStructure();
-            }
+        if (hasMaster()) { 
+              if (isMaster()) {
+            	  worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            	  storage.setCapacity(100000);
+              }
+        } else {
+              if (checkMultiBlockForm())
+                  setupStructure();
         }
     }
 	
@@ -94,7 +138,7 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
 	
 	//--------------------- energy -------------------------
 	
-	private EnergyStorage storage = new EnergyStorage(100000,80,0);
+	public EnergyStorage storage = new EnergyStorage(100000,32000,0);
 
 	@Override
 	public boolean canConnectEnergy(ForgeDirection from) {
@@ -102,23 +146,24 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
 	}
 
 	@Override
-	public int receiveEnergy(ForgeDirection from, int maxReceive,boolean simulate) {
-		return 0;
+	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
+		System.out.printf("%s%s\n", worldObj.isRemote, storage.getEnergyStored());
+			return storage.receiveEnergy(maxReceive, simulate);
 	}
-
 	@Override
 	public int extractEnergy(ForgeDirection from, int maxExtract,boolean simulate) {
 		return 0;
 	}
-
+	//LyokoEnergistics.network.sendToAll(new PacketSuperComputer2(storage.getEnergyStored()));
 	@Override
 	public int getEnergyStored(ForgeDirection from) {
-		return 0;
+		System.out.println(storage.getEnergyStored());
+		return storage.getEnergyStored();
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
-		return 0;
+			return storage.getMaxEnergyStored();
 	}
 	
 	//----------------------- multiblock -----------------------
@@ -390,100 +435,5 @@ public class TileSuperComputer extends TileEntityLE implements IEnergyHandler, I
 			storage = new EnergyStorage(100000,32000,0);
 			break;
 		}
-	}
-	
-	//----------------------- network -----------------------
-	IGridNode node = null;
-	IGridBlock gridblock;
-	private boolean isActive;
-	
-	@Override
-	public double getIdlePowerUsage() {
-		//System.out.println("1");
-		return 3.0D;
-	}
-
-	@Override
-	public EnumSet<GridFlags> getFlags() {
-		//System.out.println("2");
-		return EnumSet.of(GridFlags.REQUIRE_CHANNEL);
-	}
-
-	@Override
-	public boolean isWorldAccessible() {
-		//System.out.println("3");
-		return true;
-	}
-
-	@Override
-	public DimensionalCoord getLocation() {
-		//System.out.println("4");
-		return new DimensionalCoord(this);
-	}
-
-	@Override
-	public AEColor getGridColor() {
-		//System.out.println("5");
-		return AEColor.Transparent;
-	}
-
-	@Override
-	public void onGridNotification(GridNotification notification) {
-		//System.out.println("6");
-		
-		
-	}
-
-	@Override
-	public void setNetworkStatus(IGrid grid, int channelsInUse) {
-		//System.out.println("7");
-		
-	}
-
-	@Override
-	public EnumSet<ForgeDirection> getConnectableSides() {
-		//System.out.println("8");
-		return EnumSet.of(ForgeDirection.DOWN, ForgeDirection.UP, ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST);
-	}
-
-	@Override
-	public IGridHost getMachine() {
-		//System.out.println("9");
-		return this;
-	}
-
-	@Override
-	public void gridChanged() {
-		//System.out.println("10");
-		
-	}
-
-	@Override
-	public ItemStack getMachineRepresentation() {
-		//System.out.println("11");
-		return new ItemStack(this.getWorldObj().getBlock(xCoord, yCoord, zCoord),this.getBlockMetadata());
-	}
-
-	@Override
-	public IGridNode getGridNode(ForgeDirection dir) {
-		//System.out.println("12");
-		if(this.worldObj.isRemote)
-			return null;
-		if(node == null){
-			node = AEApi.instance().createGridNode(this);
-			node.updateState();
-		}
-		return node;
-	}
-
-	@Override
-	public AECableType getCableConnectionType(ForgeDirection dir) {
-		//System.out.println("13");
-		return AECableType.SMART;
-	}
-
-	@Override
-	public void securityBreak() {
-		//System.out.println("14");
 	}
 }

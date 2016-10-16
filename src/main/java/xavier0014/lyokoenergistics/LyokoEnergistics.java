@@ -23,8 +23,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 
-
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = "required-after:appliedenergistics2")
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = "after:appliedenergistics2")
 public class LyokoEnergistics {
 	
 	@Mod.Instance(Reference.MOD_ID)
@@ -49,7 +48,7 @@ public class LyokoEnergistics {
 		network.registerMessage(PacketSuperComputer.Handler.class, PacketSuperComputer.class, 1, Side.SERVER);
 		network.registerMessage(PacketTowerConsol.Handler.class, PacketTowerConsol.class, 2, Side.SERVER);
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-		ModBiome.initBiome();
+
 	}
 	
 	@Mod.EventHandler
@@ -57,7 +56,7 @@ public class LyokoEnergistics {
 		ModTileEntity.tileinit();
 		ModCraftingRecipe.initCrafting();
 		proxy.registerRender();
-		
+		ModBiome.initBiome();
 	}
 	
 	@Mod.EventHandler

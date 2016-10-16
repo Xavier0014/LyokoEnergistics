@@ -9,10 +9,21 @@ public class Energy extends Gui{
 	
 	private double energieStore;
 	public static final ResourceLocation texture = new ResourceLocation(Reference.MOD_id,"textures/gui/energyGui.png");
+	
+	/**
+	 * 
+	 * 
+	 * @param energieStored
+	 * 
+	 * @param energieMax
+	 */
 	public Energy(int energieStore,int energieMax) {
 		this.energieStore = (energieStore*61)/energieMax;
 	}
-	
+	/**
+	 * @param x 
+	 * @param y 
+	 */
 	public void renderEnergie(int x,int y){
 		if (energieStore >= 0 && energieStore <= 20) {
 			this.drawTexturedModalRect(x, (int) (y +(61 -energieStore*3)-1) , 1, 1, 3, (int) energieStore*3);

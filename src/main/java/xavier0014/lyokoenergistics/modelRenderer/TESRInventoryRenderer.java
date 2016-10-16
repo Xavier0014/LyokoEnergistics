@@ -25,6 +25,15 @@ public class TESRInventoryRenderer implements ISimpleBlockRenderingHandler{
 			RendererMaterializationScanner.model.render();
 			GL11.glPopMatrix();
 		}
+		if (block == ModBlock.modeltest && metadata == 0) {
+			GL11.glPushMatrix();
+			GL11.glTranslated(0D,1.0D, 0D);
+			GL11.glRotated(180D, 0.0D, 0.0D, 1.0D);
+			GL11.glRotated(180D, 0.0D, 1.0D, 0.0D);
+			Minecraft.getMinecraft().getTextureManager().bindTexture(RenderTowerScreen.texture);
+			RenderTowerScreen.model.render();
+			GL11.glPopMatrix();
+		}
 	}
 
 	@Override
